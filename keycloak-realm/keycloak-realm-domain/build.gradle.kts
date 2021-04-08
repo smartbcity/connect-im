@@ -1,6 +1,0 @@
-plugins {
-    kotlin("multiplatform")
-}
-
-dependencies {
-}
