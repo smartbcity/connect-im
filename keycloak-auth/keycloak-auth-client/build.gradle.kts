@@ -9,10 +9,6 @@ dependencies {
 
     api("org.keycloak:keycloak-admin-client:${Versions.keycloak}")
 
-    testImplementation("org.springframework.boot:spring-boot-starter-test:${PluginVersions.springBoot}") {
-        exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
-    }
-
 }
 
 apply(from = rootProject.file("gradle/publishing.gradle"))
