@@ -22,12 +22,12 @@ class AuthRealmClientBuilder {
 		val keycloak = KeycloakBuilder.builder()
 			.serverUrl(auth.serverUrl)
 			.grantType(OAuth2Constants.CLIENT_CREDENTIALS)
-			.realm(auth.realm)
+			.realm(auth.realmId)
 			.clientId(auth.clientId)
 			.clientSecret(auth.clientSecret)
 			.resteasyClient(ResteasyClientBuilder().connectionPoolSize(10).build())
 			.build()
-		val realm = keycloak.realm(auth.realm)
+		val realm = keycloak.realm(auth.realmId)
 		return AuthRealmClient(keycloak, realm, auth)
 	}
 
@@ -35,13 +35,13 @@ class AuthRealmClientBuilder {
 		val keycloak = KeycloakBuilder.builder()
 			.serverUrl(auth.serverUrl)
 			.grantType(OAuth2Constants.PASSWORD)
-			.realm(auth.realm)
+			.realm(auth.realmId)
 			.clientId(auth.clientId)
 			.username(auth.username)
 			.password(auth.password)
 			.resteasyClient(ResteasyClientBuilder().connectionPoolSize(10).build())
 			.build()
-		val realm = keycloak.realm(auth.realm)
+		val realm = keycloak.realm(auth.realmId)
 		return AuthRealmClient(keycloak, realm, auth)
 	}
 }
