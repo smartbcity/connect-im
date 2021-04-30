@@ -6,6 +6,8 @@ import org.keycloak.admin.client.Keycloak
 import org.keycloak.admin.client.resource.ClientResource
 import org.keycloak.admin.client.resource.ClientsResource
 import org.keycloak.admin.client.resource.RealmResource
+import org.keycloak.admin.client.resource.RoleResource
+import org.keycloak.admin.client.resource.RolesResource
 import org.keycloak.admin.client.resource.UserResource
 import org.keycloak.admin.client.resource.UsersResource
 
@@ -45,5 +47,21 @@ class AuthRealmClient(
 
 	fun getUserResource(realmId: RealmId, id: String): UserResource {
 		return users(realmId).get(id)!!
+	}
+
+	fun roles(): RolesResource {
+		return realm.roles()
+	}
+
+	fun roles(realmId: RealmId): RolesResource {
+		return keycloak.realm(realmId).roles()
+	}
+
+	fun getRoleResource(id: String): RoleResource {
+		return roles().get(id)
+	}
+
+	fun getRoleResource(realmId: RealmId, id: String): RoleResource {
+		return roles(realmId).get(id)!!
 	}
 }
