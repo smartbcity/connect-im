@@ -22,11 +22,7 @@ class AuthRealmClient(
 	}
 
 	fun clients(realmId: RealmId): ClientsResource {
-		return keycloak.realm(realmId).clients()
-	}
-
-	fun getClientResource(id: String): ClientResource {
-		return clients().get(id)
+		return getRealmResource(realmId).clients()
 	}
 
 	fun getClientResource(realmId: RealmId, id: String): ClientResource {
@@ -38,7 +34,7 @@ class AuthRealmClient(
 	}
 
 	fun users(realmId: RealmId): UsersResource {
-		return keycloak.realm(realmId).users()
+		return getRealmResource(realmId).users()
 	}
 
 	fun getUserResource(id: String): UserResource {
@@ -54,7 +50,7 @@ class AuthRealmClient(
 	}
 
 	fun roles(realmId: RealmId): RolesResource {
-		return keycloak.realm(realmId).roles()
+		return getRealmResource(realmId).roles()
 	}
 
 	fun getRoleResource(id: String): RoleResource {
@@ -63,5 +59,9 @@ class AuthRealmClient(
 
 	fun getRoleResource(realmId: RealmId, id: String): RoleResource {
 		return roles(realmId).get(id)!!
+	}
+
+	fun getRealmResource(realmId: RealmId): RealmResource {
+		return keycloak.realm(realmId)
 	}
 }
