@@ -1,9 +1,9 @@
 package i2.keycloak.realm.client.config
 
-import i2.keycloak.master.domain.AuthRealmClientSecret
-import i2.keycloak.master.domain.AuthRealmPassword
 import i2.keycloak.master.domain.AuthRealm
+import i2.keycloak.master.domain.AuthRealmClientSecret
 import i2.keycloak.master.domain.AuthRealmException
+import i2.keycloak.master.domain.AuthRealmPassword
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder
 import org.keycloak.OAuth2Constants
 import org.keycloak.admin.client.KeycloakBuilder
@@ -11,9 +11,9 @@ import org.keycloak.admin.client.KeycloakBuilder
 class AuthRealmClientBuilder {
 
 	fun build(auth: AuthRealm): AuthRealmClient {
-		return when(auth) {
+		return when (auth) {
 			is AuthRealmPassword -> init(auth)
-			is AuthRealmClientSecret ->  init(auth)
+			is AuthRealmClientSecret -> init(auth)
 			else -> throw AuthRealmException("Invalid AuthRealm type[${auth::class.simpleName}]")
 		}
 	}
@@ -22,12 +22,12 @@ class AuthRealmClientBuilder {
 		val keycloak = KeycloakBuilder.builder()
 			.serverUrl(auth.serverUrl)
 			.grantType(OAuth2Constants.CLIENT_CREDENTIALS)
-			.realm(auth.realm)
+			.realm(auth.realmId)
 			.clientId(auth.clientId)
 			.clientSecret(auth.clientSecret)
 			.resteasyClient(ResteasyClientBuilder().connectionPoolSize(10).build())
 			.build()
-		val realm = keycloak.realm(auth.realm)
+		val realm = keycloak.realm(auth.realmId)
 		return AuthRealmClient(keycloak, realm, auth)
 	}
 
@@ -35,13 +35,13 @@ class AuthRealmClientBuilder {
 		val keycloak = KeycloakBuilder.builder()
 			.serverUrl(auth.serverUrl)
 			.grantType(OAuth2Constants.PASSWORD)
-			.realm(auth.realm)
+			.realm(auth.realmId)
 			.clientId(auth.clientId)
 			.username(auth.username)
 			.password(auth.password)
 			.resteasyClient(ResteasyClientBuilder().connectionPoolSize(10).build())
 			.build()
-		val realm = keycloak.realm(auth.realm)
+		val realm = keycloak.realm(auth.realmId)
 		return AuthRealmClient(keycloak, realm, auth)
 	}
 }
