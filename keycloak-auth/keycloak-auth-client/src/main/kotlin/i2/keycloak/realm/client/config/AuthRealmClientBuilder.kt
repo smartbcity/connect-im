@@ -10,6 +10,10 @@ import org.keycloak.admin.client.KeycloakBuilder
 
 class AuthRealmClientBuilder {
 
+	companion object {
+		const val CONNECTION_POOL_SIZE = 10
+	}
+
 	fun build(auth: AuthRealm): AuthRealmClient {
 		return when (auth) {
 			is AuthRealmPassword -> init(auth)
@@ -25,7 +29,7 @@ class AuthRealmClientBuilder {
 			.realm(auth.realmId)
 			.clientId(auth.clientId)
 			.clientSecret(auth.clientSecret)
-			.resteasyClient(ResteasyClientBuilder().connectionPoolSize(10).build())
+			.resteasyClient(ResteasyClientBuilder().connectionPoolSize(CONNECTION_POOL_SIZE).build())
 			.build()
 		val realm = keycloak.realm(auth.realmId)
 		return AuthRealmClient(keycloak, realm, auth)
@@ -39,7 +43,7 @@ class AuthRealmClientBuilder {
 			.clientId(auth.clientId)
 			.username(auth.username)
 			.password(auth.password)
-			.resteasyClient(ResteasyClientBuilder().connectionPoolSize(10).build())
+			.resteasyClient(ResteasyClientBuilder().connectionPoolSize(CONNECTION_POOL_SIZE).build())
 			.build()
 		val realm = keycloak.realm(auth.realmId)
 		return AuthRealmClient(keycloak, realm, auth)
