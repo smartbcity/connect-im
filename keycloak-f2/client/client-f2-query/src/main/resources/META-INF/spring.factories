@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+i2.keycloak.f2.client.app.ClientGetByIdQueryFunctionImpl,\
+i2.keycloak.f2.client.app.ClientGetByClientIdentifierQueryFunctionImpl,\
+i2.keycloak.f2.client.app.ClientGetPageQueryFunctionImpl,\
+i2.keycloak.f2.client.app.ClientGetSecretQueryFunctionImpl
