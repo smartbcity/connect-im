@@ -6,9 +6,7 @@ import i2.keycloak.f2.commons.app.keycloakF2Function
 import i2.keycloak.f2.group.app.model.asModel
 import i2.keycloak.f2.group.domain.features.query.GroupGetAllQueryFunction
 import i2.keycloak.f2.group.domain.features.query.GroupGetAllQueryResult
-import i2.keycloak.f2.group.domain.model.GroupId
-import i2.keycloak.master.domain.RealmId
-import i2.keycloak.realm.client.config.AuthRealmClient
+import org.keycloak.representations.idm.GroupRepresentation
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import s2.spring.utils.logger.Logger
@@ -23,9 +21,9 @@ class GroupGetAllQueryFunctionImpl {
 	fun groupGetAllQueryFunction(): GroupGetAllQueryFunction = keycloakF2Function { cmd, client ->
 		try {
 			client.groups(cmd.realmId)
-				.groups(cmd.page * cmd.size, cmd.size)
+				.groups("", cmd.page * cmd.size, cmd.size, false)
 				.filter { group -> group.name.contains(cmd.search, true) }
-				.map { group -> client.getGroup(cmd.realmId, group.id) }
+				.map(GroupRepresentation::asModel)
 				.let(::GroupGetAllQueryResult)
 		} catch (e: NotFoundException) {
 			GroupGetAllQueryResult(emptyList())
@@ -38,8 +36,4 @@ class GroupGetAllQueryFunctionImpl {
 			).asI2Exception()
 		}
 	}
-
-	private fun AuthRealmClient.getGroup(realmId: RealmId, id: GroupId) = getGroupResource(realmId, id)
-		.toRepresentation()
-		.asModel()
 }
