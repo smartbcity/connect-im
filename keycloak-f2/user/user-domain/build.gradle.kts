@@ -5,6 +5,7 @@ plugins {
 
 dependencies {
     commonMainApi(project(":i2-keycloak:keycloak-f2:commons:commons-domain"))
+    commonMainApi(project(":i2-keycloak:keycloak-f2:group:group-domain"))
 
     commonMainApi("city.smartb.f2:f2-dsl-cqrs:${Versions.f2}")
     commonMainApi("city.smartb.f2:f2-dsl-function:${Versions.f2}")
