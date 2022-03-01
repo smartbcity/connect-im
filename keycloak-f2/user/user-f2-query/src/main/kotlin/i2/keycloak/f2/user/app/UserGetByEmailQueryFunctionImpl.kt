@@ -3,11 +3,11 @@ package i2.keycloak.f2.user.app
 import i2.commons.error.I2ApiError
 import i2.commons.error.asI2Exception
 import i2.keycloak.f2.commons.app.keycloakF2Function
-import i2.keycloak.f2.realm.domain.UserModel
-import i2.keycloak.f2.realm.domain.features.query.UserGetByEmailQueryFunction
-import i2.keycloak.f2.realm.domain.features.query.UserGetByEmailQueryResult
 import i2.keycloak.f2.user.app.model.asModel
 import i2.keycloak.f2.user.app.service.UserFinderService
+import i2.keycloak.f2.user.domain.features.query.UserGetByEmailQueryFunction
+import i2.keycloak.f2.user.domain.features.query.UserGetByEmailQueryResult
+import i2.keycloak.f2.user.domain.model.UserModel
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import s2.spring.utils.logger.Logger
@@ -23,8 +23,7 @@ class UserGetByEmailQueryFunctionImpl {
 		try {
 			realmClient.users(cmd.realmId).list().first { user ->
 				user.email == cmd.email
-			}
-				.asModel { userId -> userFinderService.getRoles(userId, cmd.realmId, cmd.auth) }
+			}.asModel { userId -> userFinderService.getRoles(userId, cmd.realmId, cmd.auth) }
 				.asResult()
 		} catch (e: NoSuchElementException) {
 			UserGetByEmailQueryResult(null)

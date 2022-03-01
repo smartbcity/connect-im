@@ -3,11 +3,11 @@ package i2.keycloak.f2.user.app
 import f2.dsl.fnc.f2Function
 import i2.commons.error.I2ApiError
 import i2.commons.error.asI2Exception
-import i2.keycloak.f2.realm.domain.UserModel
-import i2.keycloak.f2.realm.domain.features.query.UserGetByIdQueryFunction
-import i2.keycloak.f2.realm.domain.features.query.UserGetByIdQueryResult
 import i2.keycloak.f2.user.app.model.asModel
 import i2.keycloak.f2.user.app.service.UserFinderService
+import i2.keycloak.f2.user.domain.features.query.UserGetByIdQueryFunction
+import i2.keycloak.f2.user.domain.features.query.UserGetByIdQueryResult
+import i2.keycloak.f2.user.domain.model.UserModel
 import i2.keycloak.realm.client.config.AuthRealmClientBuilder
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean

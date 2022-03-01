@@ -1,9 +1,9 @@
 package i2.keycloak.f2.user.app
 
 import f2.dsl.fnc.f2Function
-import i2.keycloak.f2.realm.domain.UserId
-import i2.keycloak.f2.realm.domain.features.command.UserRolesRevokeFunction
-import i2.keycloak.f2.realm.domain.features.command.UserRolesRevokedResult
+import i2.keycloak.f2.user.domain.features.command.UserRolesRevokeFunction
+import i2.keycloak.f2.user.domain.features.command.UserRolesRevokedResult
+import i2.keycloak.f2.user.domain.model.UserId
 import i2.keycloak.realm.client.config.AuthRealmClient
 import i2.keycloak.realm.client.config.AuthRealmClientBuilder
 import org.keycloak.admin.client.resource.RoleScopeResource
