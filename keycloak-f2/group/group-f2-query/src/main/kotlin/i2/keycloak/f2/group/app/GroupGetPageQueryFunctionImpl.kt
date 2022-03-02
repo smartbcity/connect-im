@@ -6,6 +6,8 @@ import i2.keycloak.f2.commons.app.keycloakF2Function
 import i2.keycloak.f2.group.app.model.asModel
 import i2.keycloak.f2.group.domain.features.query.GroupGetAllQueryFunction
 import i2.keycloak.f2.group.domain.features.query.GroupGetAllQueryResult
+import i2.keycloak.f2.group.domain.features.query.GroupGetPageQueryFunction
+import i2.keycloak.f2.group.domain.features.query.GroupGetPageQueryResult
 import i2.keycloak.realm.client.config.AuthRealmClient
 import org.keycloak.representations.idm.GroupRepresentation
 import org.springframework.context.annotation.Bean
@@ -14,34 +16,30 @@ import s2.spring.utils.logger.Logger
 import javax.ws.rs.NotFoundException
 
 @Configuration
-class GroupGetAllQueryFunctionImpl {
+class GroupGetPageQueryFunctionImpl {
 
 	private val logger by Logger()
 
 	@Bean
-	fun groupGetAllQueryFunction(): GroupGetAllQueryFunction = keycloakF2Function { cmd, client ->
+	fun groupGetPageQueryFunction(): GroupGetPageQueryFunction = keycloakF2Function { cmd, client ->
 		try {
-			var groups = client.groups(cmd.realmId).groups("", 0, client.countAllGroups(cmd.realmId), false)
+			var groups = client.groups(cmd.realmId).groups("", cmd.page * cmd.size, cmd.size, false)
 			if (cmd.name != null) {
 				groups = groups.filter { group -> group.name.contains(cmd.name!!, true) }
 			}
 			if (cmd.role != null) {
 				groups = groups.filter { group -> group.realmRoles.contains(cmd.role) }
 			}
-			groups.map(GroupRepresentation::asModel).let(::GroupGetAllQueryResult)
+			groups.map(GroupRepresentation::asModel).let(::GroupGetPageQueryResult)
 		} catch (e: NotFoundException) {
-			GroupGetAllQueryResult(emptyList())
+			GroupGetPageQueryResult(emptyList())
 		} catch (e: Exception) {
-			val msg = "Error fetching Groups"
+			val msg = "Error fetching Groups (page: ${cmd.page}, size: ${cmd.size})"
 			logger.error(msg, e)
 			throw I2ApiError(
 				description = msg,
 				payload = emptyMap()
 			).asI2Exception()
 		}
-	}
-
-	private fun AuthRealmClient.countAllGroups(realmId: String): Int {
-		return this.groups(realmId).count()["count"]!!.toInt()
 	}
 }
