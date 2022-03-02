@@ -1,6 +1,7 @@
 package i2.keycloak.f2.user.domain.features.query
 
 import f2.dsl.cqrs.Event
+import f2.dsl.cqrs.page.Page
 import f2.dsl.fnc.F2Function
 import i2.keycloak.f2.commons.domain.KeycloakF2Command
 import i2.keycloak.f2.group.domain.model.GroupId
@@ -16,6 +17,8 @@ typealias UserGetByGroupIdQueryFunction = F2Function<UserGetByGroupIdQuery, User
 @JsName("UserGetByGroupIdQuery")
 class UserGetByGroupIdQuery(
 	val groupId: GroupId,
+	val page: Int?,
+	val size: Int?,
 	val realmId: RealmId,
 	override val auth: AuthRealm,
 ): KeycloakF2Command
@@ -23,5 +26,5 @@ class UserGetByGroupIdQuery(
 @JsExport
 @JsName("UserGetByGroupIdQueryResult")
 class UserGetByGroupIdQueryResult(
-	val users: List<UserModel>
+	val users: Page<UserModel>
 ): Event

@@ -1,4 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 i2.keycloak.f2.group.app.GroupGetAllQueryFunctionImpl,\
-i2.keycloak.f2.group.app.GroupGetPageQueryFunctionImpl,\
 i2.keycloak.f2.group.app.GroupGetByIdQueryFunctionImpl

@@ -16,6 +16,8 @@ typealias UserGetAllQueryFunction = F2Function<UserGetAllQuery, UserGetAllQueryR
 @JsExport
 @JsName("UserGetAllQuery")
 class UserGetAllQuery(
+	val page: Int?,
+	val size: Int?,
 	val realmId: RealmId,
 	override val auth: AuthRealm,
 ): KeycloakF2Command
@@ -23,5 +25,5 @@ class UserGetAllQuery(
 @JsExport
 @JsName("UserGetAllQueryResult")
 class UserGetAllQueryResult(
-	val users: List<UserModel>
+	val users: Page<UserModel>
 ): Event

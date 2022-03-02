@@ -1,5 +1,6 @@
 package i2.keycloak.f2.group.domain.features.query
 
+import f2.dsl.cqrs.page.Page
 import f2.dsl.fnc.F2Function
 import i2.keycloak.f2.commons.domain.KeycloakF2Command
 import i2.keycloak.f2.commons.domain.KeycloakF2Result
@@ -12,10 +13,12 @@ typealias GroupGetAllQueryFunction = F2Function<GroupGetAllQuery, GroupGetAllQue
 class GroupGetAllQuery(
 	val name: String?,
 	val role: String?,
+	val page: Int?,
+	val size: Int?,
 	val realmId: RealmId,
 	override val auth: AuthRealm,
 ): KeycloakF2Command
 
 class GroupGetAllQueryResult(
-	val groups: List<GroupModel>
+	val groups: Page<GroupModel>
 ): KeycloakF2Result

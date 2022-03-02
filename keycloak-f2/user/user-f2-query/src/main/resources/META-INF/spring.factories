@@ -3,7 +3,6 @@ i2.keycloak.f2.user.app.UserGetByIdQueryFunctionImpl,\
 i2.keycloak.f2.user.app.UserGetByGroupIdQueryFunctionImpl,\
 i2.keycloak.f2.user.app.UserGetByEmailQueryFunctionImpl,\
 i2.keycloak.f2.user.app.UserGetByUsernameQueryFunctionImpl,\
-i2.keycloak.f2.user.app.UserGetPageQueryFunctionImpl,\
 i2.keycloak.f2.user.app.UserGetAllQueryFunctionImpl,\
 i2.keycloak.f2.user.app.UserGetRolesQueryFunctionImpl,\
 i2.keycloak.f2.user.app.service.UserFinderService
