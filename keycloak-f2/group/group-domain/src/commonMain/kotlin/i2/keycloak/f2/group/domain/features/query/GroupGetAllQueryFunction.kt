@@ -10,7 +10,8 @@ import i2.keycloak.master.domain.RealmId
 typealias GroupGetAllQueryFunction = F2Function<GroupGetAllQuery, GroupGetAllQueryResult>
 
 class GroupGetAllQuery(
-	val search: String = "",
+	val name: String = "",
+	val role: String = "",
 	val page: Int = 0,
 	val size: Int = 1000,
 	val realmId: RealmId,

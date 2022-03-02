@@ -22,7 +22,8 @@ class GroupGetAllQueryFunctionImpl {
 		try {
 			client.groups(cmd.realmId)
 				.groups("", cmd.page * cmd.size, cmd.size, false)
-				.filter { group -> group.name.contains(cmd.search, true) }
+				.filter { group -> group.name.contains(cmd.name, true) }
+				.filter { group -> group.realmRoles.contains(cmd.role)}
 				.map(GroupRepresentation::asModel)
 				.let(::GroupGetAllQueryResult)
 		} catch (e: NotFoundException) {
