@@ -12,6 +12,6 @@ class UserModel(
 	val email: String?,
 	val firstName: String?,
 	val lastName: String?,
-	val realmRoles: List<String>,
+	val roles: UserRoles,
 	val attributes: Map<String, List<String>>
 )

@@ -34,7 +34,7 @@ class UserGetAllQueryFunctionImpl {
 		}
 
 		cmd.role?.let {
-			users = users.filter { user -> user.realmRoles.contains(it) }
+			users = users.filter { user -> user.roles.assignedRoles.contains(it) }
 		}
 
 		val count = users.count()
