@@ -1,6 +1,5 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 i2.keycloak.f2.user.app.UserGetByIdQueryFunctionImpl,\
-i2.keycloak.f2.user.app.UserGetByGroupIdQueryFunctionImpl,\
 i2.keycloak.f2.user.app.UserGetByEmailQueryFunctionImpl,\
 i2.keycloak.f2.user.app.UserGetByUsernameQueryFunctionImpl,\
 i2.keycloak.f2.user.app.UserGetAllQueryFunctionImpl,\

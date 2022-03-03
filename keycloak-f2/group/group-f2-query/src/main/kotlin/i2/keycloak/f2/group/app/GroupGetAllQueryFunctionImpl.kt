@@ -22,19 +22,20 @@ class GroupGetAllQueryFunctionImpl {
 	@Bean
 	fun groupGetAllQueryFunction(): GroupGetAllQueryFunction = keycloakF2Function { cmd, client ->
 		try {
-			val count = client.countGroups(cmd.realmId)
-			var groups = client.groups(cmd.realmId).groups("", 0, count, false)
+			var groups = client.groups(cmd.realmId).groups("", 0, client.countGroups(cmd.realmId), false)
 
-			if (cmd.name != null) {
-				groups = groups.filter { group -> group.name.contains(cmd.name!!, true) }
+			cmd.name?.let {
+				groups = groups.filter { group -> group.name.contains(it, true) }
 			}
 
-			if (cmd.role != null) {
-				groups = groups.filter { group -> group.realmRoles.contains(cmd.role) }
+			cmd.role?.let {
+				groups = groups.filter { group -> group.realmRoles.contains(it) }
 			}
 
-			if (cmd.page != null && cmd.size != null) {
-				groups = groups.chunked(cmd.size!!)[cmd.page!!]
+			val count = groups.count()
+
+			if (cmd.page.page != null && cmd.page.size != null) {
+				groups = groups.chunked(cmd.page.size!!)[cmd.page.page!!]
 			}
 
 			GroupGetAllQueryResult(
