@@ -35,7 +35,7 @@ class GroupGetAllQueryFunctionImpl {
 			val count = groups.count()
 
 			if (cmd.page.page != null && cmd.page.size != null) {
-				groups = groups.chunked(cmd.page.size!!)[cmd.page.page!!]
+				groups = groups.chunked(cmd.page.size!!).getOrNull(cmd.page.page!!).orEmpty()
 			}
 
 			GroupGetAllQueryResult(

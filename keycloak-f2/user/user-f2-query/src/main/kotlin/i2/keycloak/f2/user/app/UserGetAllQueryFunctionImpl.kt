@@ -39,7 +39,7 @@ class UserGetAllQueryFunctionImpl {
 
 		val count = users.count()
 		if (cmd.page.size != null && cmd.page.page != null) {
-			users = users.chunked(cmd.page.size!!)[cmd.page.page!!]
+			users = users.chunked(cmd.page.size!!).getOrNull(cmd.page.page!!).orEmpty()
 		}
 
 		UserGetAllQueryResult(
