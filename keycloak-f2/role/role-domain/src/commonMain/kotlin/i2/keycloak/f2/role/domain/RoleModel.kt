@@ -12,6 +12,6 @@ typealias RoleName = String
 class RoleModel(
     val id: RoleId,
     val name: RoleName,
-    val description: String,
+    val description: String?,
     val isClientRole: Boolean,
 )
