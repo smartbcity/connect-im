@@ -1,6 +1,7 @@
 package i2.keycloak.f2.user.app
 
 import f2.dsl.fnc.f2Function
+import i2.keycloak.f2.user.domain.features.command.UserRolesGrantCommand
 import i2.keycloak.f2.user.domain.features.command.UserRolesGrantFunction
 import i2.keycloak.f2.user.domain.features.command.UserRolesGrantedResult
 import i2.keycloak.f2.user.domain.model.UserId
@@ -18,11 +19,15 @@ class UserRolesGrantFunctionImpl {
 	@Bean
 	fun userRolesGrantFunction(): UserRolesGrantFunction = f2Function { cmd ->
 		val realmClient = AuthRealmClientBuilder().build(cmd.auth)
-		realmClient.addUserRole(cmd.realmId, cmd.id, cmd.roles)
+		if (cmd.clientId == null) {
+			realmClient.addUserRealmRole(cmd.realmId, cmd.id, cmd.roles)
+		} else {
+			realmClient.addUserClientRoles(cmd)
+		}
 		UserRolesGrantedResult(cmd.id)
 	}
 
-	fun AuthRealmClient.addUserRole(realmId: RealmId, userId: UserId, roles: List<String>) {
+	fun AuthRealmClient.addUserRealmRole(realmId: RealmId, userId: UserId, roles: List<String>) {
 		val roleRepresentations = roles.map { role ->
 			getRoleRepresentation(realmId, role)
 		}
@@ -35,5 +40,13 @@ class UserRolesGrantFunctionImpl {
 
 	private fun AuthRealmClient.getUserRealmRolesResource(realmId: RealmId, userId: String): RoleScopeResource {
 		return getUserResource(realmId, userId).roles().realmLevel()
+	}
+
+	private fun AuthRealmClient.addUserClientRoles(cmd: UserRolesGrantCommand) {
+		val clientKeycloakId = clients(cmd.realmId).findByClientId(cmd.clientId!!).first().id
+		val roleToAdd = cmd.roles.map { role ->
+			getClientResource(cmd.realmId, clientKeycloakId).roles().get(role).toRepresentation()
+		}
+		getUserResource(cmd.realmId, cmd.id).roles().clientLevel(clientKeycloakId).add(roleToAdd)
 	}
 }

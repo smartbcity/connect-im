@@ -17,7 +17,8 @@ class UserRolesGrantCommand(
 	val id: UserId,
 	val roles: List<String>,
 	val auth: AuthRealm,
-	val realmId: RealmId = auth.realmId
+	val realmId: RealmId = auth.realmId,
+	val clientId: String? = null
 ): Command
 
 @JsExport
