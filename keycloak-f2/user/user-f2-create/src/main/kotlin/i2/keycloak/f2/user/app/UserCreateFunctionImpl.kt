@@ -9,6 +9,7 @@ import i2.keycloak.realm.client.config.AuthRealmClientBuilder
 import i2.keycloak.utils.isFailure
 import i2.keycloak.utils.onCreationFailure
 import i2.keycloak.utils.toEntityCreatedId
+import org.keycloak.representations.idm.CredentialRepresentation
 import org.keycloak.representations.idm.UserRepresentation
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -53,7 +54,18 @@ class UserCreateFunctionImpl {
 		user.metadata.forEach {
 			userRep.singleAttribute(it.key, it.value)
 		}
+		user.password?.let { password ->
+			userRep.credentials = listOf(password.toCredentialRepresentation(CredentialRepresentation.PASSWORD))
+		}
 		return userRep
+	}
+
+	private fun String.toCredentialRepresentation(credentialType: String): CredentialRepresentation {
+		val credential = CredentialRepresentation()
+		credential.type = credentialType
+		credential.value = this
+		credential.isTemporary = false
+		return credential
 	}
 
 //	private fun onboarding(client: AuthRealmClient, cmd: UserCreateCommand) {

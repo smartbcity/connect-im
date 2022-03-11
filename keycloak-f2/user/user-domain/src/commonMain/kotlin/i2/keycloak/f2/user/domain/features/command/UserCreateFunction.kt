@@ -22,6 +22,7 @@ class UserCreateCommand(
 	val isEnable: Boolean,
 	val metadata: Map<String, String>,
 	val auth: AuthRealm,
+	val password: String? = null
 ) : Command
 
 @JsExport
