@@ -41,7 +41,7 @@ class GroupGetAllQueryFunctionImpl {
 			GroupGetAllQueryResult(
 				groups = Page(
 					total = count,
-					list = groups.map(GroupRepresentation::asModel)
+					items = groups.map(GroupRepresentation::asModel)
 				)
 			)
 		} catch (e: NotFoundException) {

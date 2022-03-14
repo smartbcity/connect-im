@@ -35,7 +35,7 @@ class RoleGetPageQueryFunctionImpl {
 		return RoleGetPageQueryResult(
 			Page(
 				total = total,
-				list = this
+				items = this,
 			)
 		)
 	}

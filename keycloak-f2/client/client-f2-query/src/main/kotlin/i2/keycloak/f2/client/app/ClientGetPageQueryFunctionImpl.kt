@@ -31,12 +31,11 @@ class ClientGetPageQueryFunctionImpl {
 			.asResult(clients.size)
 	}
 
-
 	private fun List<ClientModel>.asResult(total: Int): ClientGetPageQueryResult {
 		return ClientGetPageQueryResult(
 			Page(
 				total = total,
-				list = this
+				items = this
 			)
 		)
 	}

@@ -45,7 +45,7 @@ class UserGetAllQueryFunctionImpl {
 		UserGetAllQueryResult(
 			Page(
 				total = count,
-				list = users
+				items = users
 			)
 		)
 	}
