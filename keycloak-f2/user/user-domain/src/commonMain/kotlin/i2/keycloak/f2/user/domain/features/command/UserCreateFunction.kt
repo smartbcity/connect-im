@@ -1,4 +1,4 @@
-	package i2.keycloak.f2.user.domain.features.command
+package i2.keycloak.f2.user.domain.features.command
 
 import f2.dsl.cqrs.Command
 import f2.dsl.cqrs.Event
