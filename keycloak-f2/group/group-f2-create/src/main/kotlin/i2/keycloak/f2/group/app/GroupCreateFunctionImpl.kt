@@ -14,24 +14,35 @@ import org.keycloak.representations.idm.GroupRepresentation
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
+
 @Configuration
 class GroupCreateFunctionImpl {
 
 	@Bean
 	fun groupCreateFunction(): GroupCreateFunction = keycloakF2Function { cmd, client ->
-		client.createGroup(cmd).let(::GroupCreatedResult)
+		val groupId = client.createGroup(cmd)
+		client.addRolesToGroup(groupId, cmd)
+
+		GroupCreatedResult(groupId)
 	}
 
 	private fun AuthRealmClient.createGroup(cmd: GroupCreateCommand): GroupId {
 		val response = GroupRepresentation().apply {
 			name = cmd.name
 			attributes = cmd.attributes
-			realmRoles = cmd.roles
 		}.let(realmsResource().realm(cmd.realmId).groups()::add)
 
 		if (response.isFailure()) {
 			response.onCreationFailure("group")
 		}
 		return response.toEntityCreatedId()
+	}
+
+	private fun AuthRealmClient.addRolesToGroup(groupId: GroupId, cmd: GroupCreateCommand) {
+		val roles = cmd.roles.map { role ->
+			realm.roles()[role].toRepresentation()
+		}
+
+		this.getGroupResource(cmd.realmId, groupId).roles().realmLevel().add(roles)
 	}
 }
