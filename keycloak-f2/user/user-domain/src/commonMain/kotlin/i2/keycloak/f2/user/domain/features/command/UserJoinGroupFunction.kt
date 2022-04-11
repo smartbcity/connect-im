@@ -17,6 +17,7 @@ typealias UserJoinGroupFunction = F2Function<UserJoinGroupCommand, UserGroupJoin
 class UserJoinGroupCommand(
 	val id: UserId,
 	val groupId: GroupId,
+	val leaveOtherGroups: Boolean? = false,
 	val realmId: RealmId,
 	override val auth: AuthRealm,
 ): KeycloakF2Command
@@ -25,5 +26,6 @@ class UserJoinGroupCommand(
 @JsName("UserGroupJoinedResult")
 class UserGroupJoinedResult(
 	val id: UserId,
-	val groupId: GroupId
+	val groupId: GroupId,
+	val groupsLeft: List<GroupId>
 ): KeycloakF2Result
