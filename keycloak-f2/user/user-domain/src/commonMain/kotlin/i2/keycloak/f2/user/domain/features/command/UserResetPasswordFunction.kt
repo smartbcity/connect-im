@@ -9,7 +9,7 @@ import i2.keycloak.master.domain.RealmId
 import kotlin.js.JsExport
 import kotlin.js.JsName
 
-typealias UserResetPasswordFunction = F2Function<UserResetPasswordCommand, UserPasswordResettedResult>
+typealias UserResetPasswordFunction = F2Function<UserResetPasswordCommand, UserPasswordResetResult>
 
 @JsExport
 @JsName("UserResetPasswordCommand")
@@ -21,7 +21,7 @@ class UserResetPasswordCommand(
 ): KeycloakF2Command
 
 @JsExport
-@JsName("UserPasswordResettedResult")
-class UserPasswordResettedResult(
+@JsName("UserPasswordResetResult")
+class UserPasswordResetResult(
 	val userId: UserId
 ): KeycloakF2Result
