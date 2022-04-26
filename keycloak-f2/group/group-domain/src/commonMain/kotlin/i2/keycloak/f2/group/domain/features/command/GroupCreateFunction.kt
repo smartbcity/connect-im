@@ -19,6 +19,7 @@ class GroupCreateCommand(
 	val roles: List<String>,
 	override val auth: AuthRealm,
 	val realmId: RealmId,
+	val parentGroupId: GroupId?,
 ): KeycloakF2Command
 
 @JsExport

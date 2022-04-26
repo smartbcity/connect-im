@@ -20,3 +20,10 @@ fun Response.onCreationFailure(entityName: String = "entity") {
 		payload = emptyMap()
 	).asI2Exception()
 }
+
+fun Response.handleResponseError(entityName: String): String {
+	if (isFailure()) {
+		onCreationFailure(entityName)
+	}
+	return toEntityCreatedId()
+}

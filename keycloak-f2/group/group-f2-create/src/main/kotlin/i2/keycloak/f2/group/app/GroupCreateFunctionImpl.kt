@@ -7,12 +7,14 @@ import i2.keycloak.f2.group.domain.features.command.GroupCreatedResult
 import i2.keycloak.f2.group.domain.model.GroupId
 import i2.keycloak.realm.client.config.AuthRealmClient
 import i2.keycloak.realm.client.config.realmsResource
+import i2.keycloak.utils.handleResponseError
 import i2.keycloak.utils.isFailure
 import i2.keycloak.utils.onCreationFailure
 import i2.keycloak.utils.toEntityCreatedId
 import org.keycloak.representations.idm.GroupRepresentation
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import javax.ws.rs.core.Response
 
 
 @Configuration
@@ -20,22 +22,34 @@ class GroupCreateFunctionImpl {
 
 	@Bean
 	fun groupCreateFunction(): GroupCreateFunction = keycloakF2Function { cmd, client ->
-		val groupId = client.createGroup(cmd)
+		val groupId = cmd.parentGroupId?.let { parentGroup ->
+			client.createSubGroup(parentGroup, cmd)
+		} ?: client.createGroup(cmd)
+
 		client.addRolesToGroup(groupId, cmd)
 
 		GroupCreatedResult(groupId)
 	}
 
+	private fun AuthRealmClient.createSubGroup(parentGroup: GroupId, cmd: GroupCreateCommand): GroupId {
+		return toGroupRepresentation(cmd).let { group ->
+			realmsResource(cmd.realmId).groups().group(parentGroup).subGroup(group)
+		}.handleResponseError("group")
+	}
+
+
 	private fun AuthRealmClient.createGroup(cmd: GroupCreateCommand): GroupId {
-		val response = GroupRepresentation().apply {
+		return toGroupRepresentation(cmd)
+			.let(
+				realmsResource(cmd.realmId).groups()::add
+			).handleResponseError("group")
+	}
+
+	private fun toGroupRepresentation(cmd: GroupCreateCommand): GroupRepresentation {
+		return GroupRepresentation().apply {
 			name = cmd.name
 			attributes = cmd.attributes
-		}.let(realmsResource().realm(cmd.realmId).groups()::add)
-
-		if (response.isFailure()) {
-			response.onCreationFailure("group")
 		}
-		return response.toEntityCreatedId()
 	}
 
 	private fun AuthRealmClient.addRolesToGroup(groupId: GroupId, cmd: GroupCreateCommand) {
