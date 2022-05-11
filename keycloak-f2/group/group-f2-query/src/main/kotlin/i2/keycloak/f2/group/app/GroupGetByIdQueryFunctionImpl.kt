@@ -19,9 +19,14 @@ class GroupGetByIdQueryFunctionImpl {
 	@Bean
 	fun groupGetByIdQueryFunction(): GroupGetByIdQueryFunction = keycloakF2Function { cmd, client ->
 		try {
+			val roles = client.roles().list().associate { role ->
+				val composites = client.getRoleResource(role.name).realmRoleComposites.mapNotNull { it.name }
+				role.name to composites.toList()
+			}
+
 			client.getGroupResource(cmd.realmId, cmd.id)
 				.toRepresentation()
-				.asModel()
+				.asModel{ roles[it].orEmpty().toList() }
 				.let(::GroupGetByIdQueryResult)
 		} catch (e: NotFoundException) {
 			GroupGetByIdQueryResult(null)

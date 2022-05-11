@@ -8,7 +8,6 @@ import i2.keycloak.f2.group.app.model.asModel
 import i2.keycloak.f2.group.domain.features.query.GroupGetAllQueryFunction
 import i2.keycloak.f2.group.domain.features.query.GroupGetAllQueryResult
 import i2.keycloak.realm.client.config.AuthRealmClient
-import org.keycloak.representations.idm.GroupRepresentation
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import s2.spring.utils.logger.Logger
@@ -22,6 +21,11 @@ class GroupGetAllQueryFunctionImpl {
 	@Bean
 	fun groupGetAllQueryFunction(): GroupGetAllQueryFunction = keycloakF2Function { cmd, client ->
 		try {
+			val roles = client.roles().list().associate { role ->
+				val composites = client.getRoleResource(role.name).realmRoleComposites.mapNotNull { it.name }
+				role.name to composites.toList()
+			}
+
 			var groups = client.groups(cmd.realmId).groups("", 0, client.countGroups(cmd.realmId), false)
 
 			cmd.name?.let {
@@ -41,7 +45,7 @@ class GroupGetAllQueryFunctionImpl {
 			GroupGetAllQueryResult(
 				groups = Page(
 					total = count,
-					items = groups.map(GroupRepresentation::asModel)
+					items = groups.map { group -> group.asModel{ roles[it].orEmpty().toList() } }
 				)
 			)
 		} catch (e: NotFoundException) {
