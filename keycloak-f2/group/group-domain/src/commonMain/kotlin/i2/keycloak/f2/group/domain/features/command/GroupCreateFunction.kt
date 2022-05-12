@@ -9,21 +9,21 @@ import i2.keycloak.master.domain.RealmId
 import kotlin.js.JsExport
 import kotlin.js.JsName
 
-typealias GroupCreateFunction = F2Function<GroupCreateCommand, GroupCreatedResult>
+typealias GroupCreateFunction = F2Function<GroupCreateCommand, GroupCreateResult>
 
 @JsExport
 @JsName("GroupCreateCommand")
 class GroupCreateCommand(
-	val name: String,
-	val attributes: Map<String, List<String>>,
-	val roles: List<String>,
-	override val auth: AuthRealm,
-	val realmId: RealmId,
-	val parentGroupId: GroupId?,
+    val name: String,
+    val attributes: Map<String, List<String>>,
+    val roles: List<String>,
+    override val auth: AuthRealm,
+    val realmId: RealmId,
+    val parentGroupId: GroupId?,
 ): KeycloakF2Command
 
 @JsExport
-@JsName("GroupCreatedResult")
-class GroupCreatedResult(
+@JsName("GroupCreateResult")
+class GroupCreateResult(
 	val id: GroupId
 ): KeycloakF2Result

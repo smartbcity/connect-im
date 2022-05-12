@@ -4,29 +4,31 @@ import f2.dsl.fnc.f2Function
 import i2.commons.error.I2ApiError
 import i2.commons.error.asI2Exception
 import i2.keycloak.f2.client.domain.ClientModel
-import i2.keycloak.f2.client.domain.features.query.ClientGetByIdQueryFunction
-import i2.keycloak.f2.client.domain.features.query.ClientGetByIdQueryResult
+import i2.keycloak.f2.client.domain.features.query.ClientGetByClientIdentifierFunction
+import i2.keycloak.f2.client.domain.features.query.ClientGetByClientIdentifierResult
 import i2.keycloak.realm.client.config.AuthRealmClientBuilder
-import org.keycloak.representations.idm.ClientRepresentation
-import org.slf4j.LoggerFactory
-import org.springframework.context.annotation.Bean
 import javax.ws.rs.NotFoundException
+import org.keycloak.representations.idm.ClientRepresentation
+import org.springframework.context.annotation.Bean
+import s2.spring.utils.logger.Logger
 
-class ClientGetByIdQueryFunctionImpl {
-    private val logger = LoggerFactory.getLogger(ClientGetByIdQueryFunctionImpl::class.java)
+class ClientGetByClientIdentifierFunctionImpl {
+
+    private val logger by Logger()
 
     @Bean
-    fun clientGetByIdQueryFunction(): ClientGetByIdQueryFunction = f2Function { cmd ->
+    fun clientGetByClientIdentifierFunction(): ClientGetByClientIdentifierFunction = f2Function { cmd ->
         val realmClient = AuthRealmClientBuilder().build(cmd.auth)
         try {
-            realmClient.getClientResource(cmd.realmId, cmd.id)
-                .toRepresentation()
-                .asModel()
+            realmClient.getRealmResource(cmd.realmId).clients()
+                .findByClientId(cmd.clientIdentifier)
+                .firstOrNull()
+                ?.asModel()
                 .asResult()
         } catch (e: NotFoundException) {
-            ClientGetByIdQueryResult(null)
+            ClientGetByClientIdentifierResult(null)
         } catch (e: Exception) {
-            val msg = "Error fetching client with id[${cmd.id}]"
+            val msg = "Error fetching client with client identifier[${cmd.clientIdentifier}]"
             logger.error(msg, e)
             throw I2ApiError(
                 description = msg,
@@ -42,7 +44,7 @@ class ClientGetByIdQueryFunctionImpl {
         )
     }
 
-    private fun ClientModel.asResult(): ClientGetByIdQueryResult {
-        return ClientGetByIdQueryResult(this)
+    private fun ClientModel?.asResult(): ClientGetByClientIdentifierResult {
+        return ClientGetByClientIdentifierResult(this)
     }
 }

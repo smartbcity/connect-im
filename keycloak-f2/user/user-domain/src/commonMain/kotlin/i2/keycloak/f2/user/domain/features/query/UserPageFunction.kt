@@ -11,21 +11,21 @@ import i2.keycloak.master.domain.RealmId
 import kotlin.js.JsExport
 import kotlin.js.JsName
 
-typealias UserGetAllQueryFunction = F2Function<UserGetAllQuery, UserGetAllQueryResult>
+typealias UserPageFunction = F2Function<UserPageQuery, UserPageResult>
 
 @JsExport
-@JsName("UserGetAllQuery")
-class UserGetAllQuery(
-	val groupId: String? = null,
-	val email: String? = null,
-	val role: String? = null,
-	val page: PagePagination,
-	val realmId: RealmId,
-	override val auth: AuthRealm,
+@JsName("UserPageQuery")
+class UserPageQuery(
+    val groupId: String? = null,
+    val email: String? = null,
+    val role: String? = null,
+    val page: PagePagination,
+    val realmId: RealmId,
+    override val auth: AuthRealm,
 ): KeycloakF2Command
 
 @JsExport
-@JsName("UserGetAllQueryResult")
-class UserGetAllQueryResult(
-	val users: Page<UserModel>
+@JsName("UserPageResult")
+class UserPageResult(
+	val items: Page<UserModel>
 ): Event

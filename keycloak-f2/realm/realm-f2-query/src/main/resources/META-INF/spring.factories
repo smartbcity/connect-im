@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-i2.keycloak.f2.realm.app.RealmGetOneQueryFunctionImpl
+i2.keycloak.f2.realm.app.RealmGetFunctionImpl

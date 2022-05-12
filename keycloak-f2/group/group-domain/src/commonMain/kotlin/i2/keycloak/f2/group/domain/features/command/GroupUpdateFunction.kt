@@ -9,21 +9,21 @@ import i2.keycloak.master.domain.RealmId
 import kotlin.js.JsExport
 import kotlin.js.JsName
 
-typealias GroupUpdateFunction = F2Function<GroupUpdateCommand, GroupUpdatedResult>
+typealias GroupUpdateFunction = F2Function<GroupUpdateCommand, GroupUpdateResult>
 
 @JsExport
 @JsName("GroupUpdateCommand")
 class GroupUpdateCommand(
-	val id: GroupId,
-	val name: String,
-	val attributes: Map<String, List<String>>,
-	val roles: List<String>,
-	override val auth: AuthRealm,
-	val realmId: RealmId,
+    val id: GroupId,
+    val name: String,
+    val attributes: Map<String, List<String>>,
+    val roles: List<String>,
+    override val auth: AuthRealm,
+    val realmId: RealmId,
 ): KeycloakF2Command
 
 @JsExport
-@JsName("GroupUpdatedResult")
-class GroupUpdatedResult(
+@JsName("GroupUpdateResult")
+class GroupUpdateResult(
 	val id: GroupId
 ): KeycloakF2Result

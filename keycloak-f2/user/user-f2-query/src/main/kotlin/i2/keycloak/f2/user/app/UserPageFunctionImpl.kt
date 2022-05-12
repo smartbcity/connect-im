@@ -5,8 +5,8 @@ import i2.keycloak.f2.commons.app.keycloakF2Function
 import i2.keycloak.f2.group.domain.model.GroupId
 import i2.keycloak.f2.user.app.model.asModels
 import i2.keycloak.f2.user.app.service.UserFinderService
-import i2.keycloak.f2.user.domain.features.query.UserGetAllQueryFunction
-import i2.keycloak.f2.user.domain.features.query.UserGetAllQueryResult
+import i2.keycloak.f2.user.domain.features.query.UserPageFunction
+import i2.keycloak.f2.user.domain.features.query.UserPageResult
 import i2.keycloak.realm.client.config.AuthRealmClient
 import org.keycloak.representations.idm.UserRepresentation
 import org.springframework.beans.factory.annotation.Autowired
@@ -14,13 +14,13 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
 @Configuration
-class UserGetAllQueryFunctionImpl {
+class UserPageFunctionImpl {
 
 	@Autowired
 	private lateinit var userFinderService: UserFinderService
 
 	@Bean
-	fun userGetAllQueryFunctionImpl(): UserGetAllQueryFunction = keycloakF2Function { cmd, realmClient ->
+	fun userPageFunctionImpl(): UserPageFunction = keycloakF2Function { cmd, realmClient ->
 		val usersRepresentation = if (cmd.groupId == null) {
 			getAllUsers(realmClient, cmd.realmId)
 		} else {
@@ -42,7 +42,7 @@ class UserGetAllQueryFunctionImpl {
 			users = users.chunked(cmd.page.size!!).getOrNull(cmd.page.page!!).orEmpty()
 		}
 
-		UserGetAllQueryResult(
+		UserPageResult(
 			Page(
 				total = count,
 				items = users

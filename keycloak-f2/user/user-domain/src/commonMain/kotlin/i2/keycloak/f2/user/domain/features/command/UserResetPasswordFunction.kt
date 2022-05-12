@@ -14,10 +14,10 @@ typealias UserResetPasswordFunction = F2Function<UserResetPasswordCommand, UserP
 @JsExport
 @JsName("UserResetPasswordCommand")
 class UserResetPasswordCommand(
-	val userId: UserId,
-	val password: String,
-	val realmId: RealmId,
-	override val auth: AuthRealm,
+    val userId: UserId,
+    val password: String,
+    val realmId: RealmId,
+    override val auth: AuthRealm,
 ): KeycloakF2Command
 
 @JsExport

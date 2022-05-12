@@ -4,20 +4,20 @@ import i2.commons.error.I2ApiError
 import i2.commons.error.asI2Exception
 import i2.keycloak.f2.commons.app.keycloakF2Function
 import i2.keycloak.f2.group.app.model.asModel
-import i2.keycloak.f2.group.domain.features.query.GroupGetByIdQueryFunction
-import i2.keycloak.f2.group.domain.features.query.GroupGetByIdQueryResult
+import i2.keycloak.f2.group.domain.features.query.GroupGetFunction
+import i2.keycloak.f2.group.domain.features.query.GroupGetResult
+import javax.ws.rs.NotFoundException
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import s2.spring.utils.logger.Logger
-import javax.ws.rs.NotFoundException
 
 @Configuration
-class GroupGetByIdQueryFunctionImpl {
+class GroupGetFunctionImpl {
 
 	private val logger by Logger()
 
 	@Bean
-	fun groupGetByIdQueryFunction(): GroupGetByIdQueryFunction = keycloakF2Function { cmd, client ->
+	fun groupGetFunction(): GroupGetFunction = keycloakF2Function { cmd, client ->
 		try {
 			val roles = client.roles().list().associate { role ->
 				val composites = client.getRoleResource(role.name).realmRoleComposites.mapNotNull { it.name }
@@ -27,9 +27,9 @@ class GroupGetByIdQueryFunctionImpl {
 			client.getGroupResource(cmd.realmId, cmd.id)
 				.toRepresentation()
 				.asModel{ roles[it].orEmpty().toList() }
-				.let(::GroupGetByIdQueryResult)
+				.let(::GroupGetResult)
 		} catch (e: NotFoundException) {
-			GroupGetByIdQueryResult(null)
+			GroupGetResult(null)
 		} catch (e: Exception) {
 			val msg = "Error fetching Group with id[${cmd.id}]"
 			logger.error(msg, e)

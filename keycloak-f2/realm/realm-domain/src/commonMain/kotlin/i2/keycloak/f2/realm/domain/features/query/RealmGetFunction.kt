@@ -1,4 +1,4 @@
-package i2.keycloak.f2.realm.domain.features.command
+package i2.keycloak.f2.realm.domain.features.query
 
 import f2.dsl.cqrs.Command
 import f2.dsl.cqrs.Event
@@ -9,17 +9,17 @@ import i2.keycloak.master.domain.AuthRealm
 import kotlin.js.JsExport
 import kotlin.js.JsName
 
-typealias RealmGetOneQueryFunction = F2Function<RealmGetOneQuery, RealmGetOneQueryResult>
+typealias RealmGetFunction = F2Function<RealmGetQuery, RealmGetResult>
 
 @JsExport
-@JsName("RealmGetOneQuery")
-class RealmGetOneQuery(
+@JsName("RealmGetQuery")
+class RealmGetQuery(
     val id: RealmId,
     val authRealm: AuthRealm
 ): Command
 
 @JsExport
-@JsName("RealmGetOneQueryResult")
-class RealmGetOneQueryResult(
+@JsName("RealmGetResult")
+class RealmGetResult(
 	val realm: RealmModel?
 ): Event

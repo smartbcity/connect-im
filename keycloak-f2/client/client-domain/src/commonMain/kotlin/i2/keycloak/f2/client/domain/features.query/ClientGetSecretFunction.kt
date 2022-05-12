@@ -7,7 +7,7 @@ import i2.keycloak.master.domain.RealmId
 import kotlin.js.JsExport
 import kotlin.js.JsName
 
-typealias ClientGetSecretQueryFunction = F2Function<ClientGetSecretQuery, ClientGetSecretQueryResult>
+typealias ClientGetSecretFunction = F2Function<ClientGetSecretQuery, ClientGetSecretResult>
 
 @JsExport
 @JsName("ClientGetSecretQuery")
@@ -18,7 +18,7 @@ class ClientGetSecretQuery(
 )
 
 @JsExport
-@JsName("ClientGetSecretQueryResult")
-class ClientGetSecretQueryResult(
+@JsName("ClientGetSecretResult")
+class ClientGetSecretResult(
     val secret: String?
 )

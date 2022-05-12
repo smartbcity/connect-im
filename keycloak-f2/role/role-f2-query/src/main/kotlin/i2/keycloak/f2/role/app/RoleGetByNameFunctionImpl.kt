@@ -6,17 +6,17 @@ import i2.commons.error.asI2Exception
 import i2.keycloak.f2.role.domain.features.query.RoleGetByNameQueryFunction
 import i2.keycloak.f2.role.domain.features.query.RoleGetByNameQueryResult
 import i2.keycloak.realm.client.config.AuthRealmClientBuilder
+import javax.ws.rs.NotFoundException
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import s2.spring.utils.logger.Logger
-import javax.ws.rs.NotFoundException
 
 @Configuration
-class RoleGetByNameQueryFunctionImpl {
+class RoleGetByNameFunctionImpl {
     private val logger by Logger()
 
     @Bean
-    fun roleGetByNameQueryFunction(): RoleGetByNameQueryFunction = f2Function { cmd ->
+    fun roleGetByNameFunction(): RoleGetByNameQueryFunction = f2Function { cmd ->
         val realmClient = AuthRealmClientBuilder().build(cmd.auth)
         try {
             realmClient.getRoleResource(cmd.realmId, cmd.name)

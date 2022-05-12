@@ -9,24 +9,24 @@ import i2.keycloak.master.domain.RealmId
 import kotlin.js.JsExport
 import kotlin.js.JsName
 
-typealias UserCreateFunction = F2Function<UserCreateCommand, UserCreatedResult>
+typealias UserCreateFunction = F2Function<UserCreateCommand, UserCreateResult>
 
 @JsExport
 @JsName("UserCreateCommand")
 class UserCreateCommand(
-	val realmId: RealmId,
-	val username: String,
-	val firstname: String?,
-	val lastname: String?,
-	val email: String,
-	val isEnable: Boolean,
-	val metadata: Map<String, String>,
-	val auth: AuthRealm,
-	val password: String? = null
+    val realmId: RealmId,
+    val username: String,
+    val firstname: String?,
+    val lastname: String?,
+    val email: String,
+    val isEnable: Boolean,
+    val metadata: Map<String, String>,
+    val auth: AuthRealm,
+    val password: String? = null
 ) : Command
 
 @JsExport
-@JsName("UserCreatedResult")
-class UserCreatedResult(
+@JsName("UserCreateResult")
+class UserCreateResult(
 	val id: UserId
 ) : Event

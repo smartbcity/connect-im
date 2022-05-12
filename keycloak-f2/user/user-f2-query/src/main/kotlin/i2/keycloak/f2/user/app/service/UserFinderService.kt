@@ -1,8 +1,8 @@
 package i2.keycloak.f2.user.app.service
 
 import f2.dsl.fnc.invokeWith
+import i2.keycloak.f2.user.domain.features.query.UserGetRolesFunction
 import i2.keycloak.f2.user.domain.features.query.UserGetRolesQuery
-import i2.keycloak.f2.user.domain.features.query.UserGetRolesQueryFunction
 import i2.keycloak.f2.user.domain.model.UserId
 import i2.keycloak.f2.user.domain.model.UserRoles
 import i2.keycloak.master.domain.AuthRealm
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class UserFinderService(
-    private val userGetRolesQueryFunction: UserGetRolesQueryFunction
+    private val userGetRolesQueryFunction: UserGetRolesFunction
 ) {
     suspend fun getRoles(userId: UserId, realmId: RealmId, authRealm: AuthRealm): UserRoles {
         val query = UserGetRolesQuery(

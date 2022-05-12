@@ -9,18 +9,18 @@ import i2.keycloak.master.domain.RealmId
 import kotlin.js.JsExport
 import kotlin.js.JsName
 
-typealias UserGetByEmailQueryFunction = F2Function<UserGetByEmailQuery, UserGetByEmailQueryResult>
+typealias UserGetByEmailFunction = F2Function<UserGetByEmailQuery, UserGetByEmailResult>
 
 @JsExport
 @JsName("UserGetByEmailQuery")
 class UserGetByEmailQuery(
-	val email: String,
-	val realmId: RealmId,
-	override val auth: AuthRealm
+    val email: String,
+    val realmId: RealmId,
+    override val auth: AuthRealm
 ): KeycloakF2Command
 
 @JsExport
 @JsName("UserGetByEmailQueryResult")
-class UserGetByEmailQueryResult(
+class UserGetByEmailResult(
 	val user: UserModel?
 ): Event

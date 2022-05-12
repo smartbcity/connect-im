@@ -4,7 +4,7 @@ import i2.commons.error.I2ApiError
 import i2.commons.error.asI2Exception
 import i2.keycloak.f2.commons.app.keycloakF2Function
 import i2.keycloak.f2.group.domain.features.command.GroupUpdateFunction
-import i2.keycloak.f2.group.domain.features.command.GroupUpdatedResult
+import i2.keycloak.f2.group.domain.features.command.GroupUpdateResult
 import i2.keycloak.realm.client.config.AuthRealmClient
 import org.keycloak.admin.client.resource.GroupResource
 import org.springframework.context.annotation.Bean
@@ -26,14 +26,14 @@ class GroupUpdateFunctionImpl {
 				attributes = cmd.attributes
 			}.let(groupResource::update)
 
-			GroupUpdatedResult(cmd.id)
+			GroupUpdateResult(cmd.id)
 		} catch (e: Exception) {
 			throw I2ApiError(
 				description = "Realm[${cmd.realmId}] wGroup[${cmd.id}] Error updating",
 				payload = emptyMap()
 			).asI2Exception(e)
 		}
-		GroupUpdatedResult(cmd.id)
+		GroupUpdateResult(cmd.id)
 	}
 
 	private fun GroupResource.removeAllRoles() {

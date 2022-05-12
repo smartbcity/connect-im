@@ -4,28 +4,28 @@ import f2.dsl.fnc.f2Function
 import i2.commons.error.I2ApiError
 import i2.commons.error.asI2Exception
 import i2.keycloak.f2.realm.domain.RealmModel
-import i2.keycloak.f2.realm.domain.features.command.RealmGetOneQueryFunction
-import i2.keycloak.f2.realm.domain.features.command.RealmGetOneQueryResult
+import i2.keycloak.f2.realm.domain.features.query.RealmGetFunction
+import i2.keycloak.f2.realm.domain.features.query.RealmGetResult
 import i2.keycloak.realm.client.config.AuthRealmClientBuilder
+import javax.ws.rs.NotFoundException
 import org.keycloak.representations.idm.RealmRepresentation
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import s2.spring.utils.logger.Logger
-import javax.ws.rs.NotFoundException
 
 @Configuration
-class RealmGetOneQueryFunctionImpl {
+class RealmGetFunctionImpl {
 
 	private val logger by Logger()
 
 	@Bean
-	fun realmGetOneQueryFunction(): RealmGetOneQueryFunction = f2Function { cmd ->
+	fun realmGetFunction(): RealmGetFunction = f2Function { cmd ->
 		try {
 			val masterRealm = AuthRealmClientBuilder().build(cmd.authRealm)
 			val model = masterRealm.keycloak.realm(cmd.id).toRepresentation().asRealmModel()
-			RealmGetOneQueryResult(model)
+			RealmGetResult(model)
 		} catch (e: NotFoundException) {
-			RealmGetOneQueryResult(null)
+			RealmGetResult(null)
 		} catch (e: Exception) {
 			val msg = "Error fetching realm with id[${cmd.id}]"
 			logger.error(msg, e)

@@ -8,14 +8,14 @@ import i2.keycloak.f2.group.domain.model.GroupModel
 import i2.keycloak.master.domain.AuthRealm
 import i2.keycloak.master.domain.RealmId
 
-typealias GroupGetByIdQueryFunction = F2Function<GroupGetByIdQuery, GroupGetByIdQueryResult>
+typealias GroupGetFunction = F2Function<GroupGetQuery, GroupGetResult>
 
-class GroupGetByIdQuery(
-	val id: GroupId,
-	val realmId: RealmId,
-	override val auth: AuthRealm,
+class GroupGetQuery(
+    val id: GroupId,
+    val realmId: RealmId,
+    override val auth: AuthRealm,
 ): KeycloakF2Command
 
-class GroupGetByIdQueryResult(
-	val group: GroupModel?
+class GroupGetResult(
+	val item: GroupModel?
 ): KeycloakF2Result

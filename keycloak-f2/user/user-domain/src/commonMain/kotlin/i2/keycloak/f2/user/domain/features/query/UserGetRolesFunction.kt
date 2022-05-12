@@ -10,18 +10,18 @@ import i2.keycloak.master.domain.RealmId
 import kotlin.js.JsExport
 import kotlin.js.JsName
 
-typealias UserGetRolesQueryFunction = F2Function<UserGetRolesQuery, UserGetRolesQueryResult>
+typealias UserGetRolesFunction = F2Function<UserGetRolesQuery, UserGetRolesResult>
 
 @JsExport
 @JsName("UserGetRolesQuery")
 class UserGetRolesQuery(
-	val userId: UserId,
-	val realmId: RealmId,
-	override val auth: AuthRealm,
+    val userId: UserId,
+    val realmId: RealmId,
+    override val auth: AuthRealm,
 ): KeycloakF2Command
 
 @JsExport
-@JsName("UserGetRolesQueryResult")
-class UserGetRolesQueryResult(
+@JsName("UserGetRolesResult")
+class UserGetRolesResult(
 	val roles: UserRoles
 ): Event

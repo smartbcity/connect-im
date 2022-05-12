@@ -10,7 +10,7 @@ import i2.keycloak.master.domain.RealmId
 import kotlin.js.JsExport
 import kotlin.js.JsName
 
-typealias ClientCreateFunction = F2Function<ClientCreateCommand, ClientCreatedResult>
+typealias ClientCreateFunction = F2Function<ClientCreateCommand, ClientCreateResult>
 
 @JsExport
 @JsName("ClientCreateCommand")
@@ -33,7 +33,7 @@ class ClientCreateCommand(
 ): Command
 
 @JsExport
-@JsName("ClientCreatedResult")
-class ClientCreatedResult(
+@JsName("ClientCreateResult")
+class ClientCreateResult(
 	val id: ClientId
 ): Event

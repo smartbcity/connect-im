@@ -11,18 +11,18 @@ import i2.keycloak.master.domain.RealmId
 import kotlin.js.JsExport
 import kotlin.js.JsName
 
-typealias ClientGetPageQueryFunction = F2Function<ClientGetPageQuery, ClientGetPageQueryResult>
+typealias ClientPageFunction = F2Function<ClientPageQuery, ClientPageResult>
 
 @JsExport
-@JsName("ClientGetPageQuery")
-class ClientGetPageQuery(
-	val realmId: RealmId,
-	val page: PagePagination,
-	val auth: AuthRealm,
+@JsName("ClientPageQuery")
+class ClientPageQuery(
+    val realmId: RealmId,
+    val page: PagePagination,
+    val auth: AuthRealm,
 ): Command
 
 @JsExport
-@JsName("ClientGetPageQueryResult")
-class ClientGetPageQueryResult(
+@JsName("ClientPageResult")
+class ClientPageResult(
 	val page: Page<ClientModel>
 ): Event

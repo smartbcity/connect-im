@@ -9,18 +9,18 @@ import i2.keycloak.master.domain.RealmId
 import kotlin.js.JsExport
 import kotlin.js.JsName
 
-typealias RoleGetPageQueryFunction = F2Function<RoleGetPageQuery, RoleGetPageQueryResult>
+typealias RolePageFunction = F2Function<RolePageQuery, RolePageResult>
 
 @JsExport
-@JsName("RoleGetPageQuery")
-class RoleGetPageQuery(
+@JsName("RolePageQuery")
+class RolePageQuery(
     val realmId: RealmId,
     val auth: AuthRealm,
     val page: PagePagination,
 )
 
 @JsExport
-@JsName("RoleGetPageQueryResult")
-class RoleGetPageQueryResult(
+@JsName("RolePageResult")
+class RolePageResult(
     val page: Page<RoleModel>
 )

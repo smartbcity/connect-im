@@ -10,21 +10,21 @@ import i2.keycloak.master.domain.RealmId
 import kotlin.js.JsExport
 import kotlin.js.JsName
 
-typealias UserJoinGroupFunction = F2Function<UserJoinGroupCommand, UserGroupJoinedResult>
+typealias UserJoinGroupFunction = F2Function<UserJoinGroupCommand, UserGroupJoinResult>
 
 @JsExport
 @JsName("UserJoinGroupCommand")
 class UserJoinGroupCommand(
-	val id: UserId,
-	val groupId: GroupId,
-	val leaveOtherGroups: Boolean? = false,
-	val realmId: RealmId,
-	override val auth: AuthRealm,
+    val id: UserId,
+    val groupId: GroupId,
+    val leaveOtherGroups: Boolean? = false,
+    val realmId: RealmId,
+    override val auth: AuthRealm,
 ): KeycloakF2Command
 
 @JsExport
-@JsName("UserGroupJoinedResult")
-class UserGroupJoinedResult(
+@JsName("UserGroupJoinResult")
+class UserGroupJoinResult(
 	val id: UserId,
 	val groupId: GroupId,
 	val groupsLeft: List<GroupId>

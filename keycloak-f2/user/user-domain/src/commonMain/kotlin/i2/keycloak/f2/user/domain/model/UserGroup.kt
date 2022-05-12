@@ -8,4 +8,5 @@ import kotlin.js.JsName
 class UserGroup(
     val id: String,
     val name: String,
+    val roles: List<String>
 )

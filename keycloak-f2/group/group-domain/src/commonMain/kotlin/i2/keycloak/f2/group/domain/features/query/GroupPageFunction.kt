@@ -9,9 +9,9 @@ import i2.keycloak.f2.group.domain.model.GroupModel
 import i2.keycloak.master.domain.AuthRealm
 import i2.keycloak.master.domain.RealmId
 
-typealias GroupGetAllQueryFunction = F2Function<GroupGetAllQuery, GroupGetAllQueryResult>
+typealias GroupPageFunction = F2Function<GroupPageQuery, GroupPageResult>
 
-class GroupGetAllQuery(
+class GroupPageQuery(
 	val name: String? = null,
 	val role: String? = null,
 	val page: PagePagination,
@@ -19,6 +19,6 @@ class GroupGetAllQuery(
 	override val auth: AuthRealm,
 ): KeycloakF2Command
 
-class GroupGetAllQueryResult(
-	val groups: Page<GroupModel>
+class GroupPageResult(
+	val page: Page<GroupModel>
 ): KeycloakF2Result

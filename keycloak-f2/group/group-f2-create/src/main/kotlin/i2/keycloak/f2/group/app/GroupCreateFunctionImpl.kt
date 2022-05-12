@@ -3,18 +3,14 @@ package i2.keycloak.f2.group.app
 import i2.keycloak.f2.commons.app.keycloakF2Function
 import i2.keycloak.f2.group.domain.features.command.GroupCreateCommand
 import i2.keycloak.f2.group.domain.features.command.GroupCreateFunction
-import i2.keycloak.f2.group.domain.features.command.GroupCreatedResult
+import i2.keycloak.f2.group.domain.features.command.GroupCreateResult
 import i2.keycloak.f2.group.domain.model.GroupId
 import i2.keycloak.realm.client.config.AuthRealmClient
 import i2.keycloak.realm.client.config.realmsResource
 import i2.keycloak.utils.handleResponseError
-import i2.keycloak.utils.isFailure
-import i2.keycloak.utils.onCreationFailure
-import i2.keycloak.utils.toEntityCreatedId
 import org.keycloak.representations.idm.GroupRepresentation
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import javax.ws.rs.core.Response
 
 
 @Configuration
@@ -28,7 +24,7 @@ class GroupCreateFunctionImpl {
 
 		client.addRolesToGroup(groupId, cmd)
 
-		GroupCreatedResult(groupId)
+		GroupCreateResult(groupId)
 	}
 
 	private fun AuthRealmClient.createSubGroup(parentGroup: GroupId, cmd: GroupCreateCommand): GroupId {

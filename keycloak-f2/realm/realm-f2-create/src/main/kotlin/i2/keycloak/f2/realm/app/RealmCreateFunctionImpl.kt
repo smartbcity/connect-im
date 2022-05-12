@@ -3,7 +3,7 @@ package i2.keycloak.f2.realm.app
 import f2.dsl.fnc.f2Function
 import i2.keycloak.f2.realm.domain.features.command.RealmCreateCommand
 import i2.keycloak.f2.realm.domain.features.command.RealmCreateFunction
-import i2.keycloak.f2.realm.domain.features.command.RealmCreatedResult
+import i2.keycloak.f2.realm.domain.features.command.RealmCreateResult
 import i2.keycloak.realm.client.config.AuthRealmClient
 import i2.keycloak.realm.client.config.AuthRealmClientBuilder
 import i2.keycloak.realm.client.config.buildRealmRepresentation
@@ -18,7 +18,7 @@ class RealmCreateFunctionImpl {
 	fun realmCreateFunction(): RealmCreateFunction = f2Function { cmd ->
 		val masterRealm = AuthRealmClientBuilder().build(cmd.masterRealmAuth)
 		masterRealm.createRealm(cmd)
-		RealmCreatedResult(cmd.id)
+		RealmCreateResult(cmd.id)
 	}
 
 	private fun AuthRealmClient.createRealm(cmd: RealmCreateCommand) {

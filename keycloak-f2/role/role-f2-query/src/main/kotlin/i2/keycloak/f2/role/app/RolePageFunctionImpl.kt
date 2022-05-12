@@ -3,14 +3,14 @@ package i2.keycloak.f2.role.app
 import f2.dsl.cqrs.page.Page
 import f2.dsl.fnc.f2Function
 import i2.keycloak.f2.role.domain.RoleModel
-import i2.keycloak.f2.role.domain.features.query.RoleGetPageQueryFunction
-import i2.keycloak.f2.role.domain.features.query.RoleGetPageQueryResult
+import i2.keycloak.f2.role.domain.features.query.RolePageFunction
+import i2.keycloak.f2.role.domain.features.query.RolePageResult
 import i2.keycloak.realm.client.config.AuthRealmClientBuilder
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
 @Configuration
-class RoleGetPageQueryFunctionImpl {
+class RolePageFunctionImpl {
 
 	companion object {
 		const val PAGE_SIZE = 10
@@ -18,7 +18,7 @@ class RoleGetPageQueryFunctionImpl {
 	}
 
 	@Bean
-	fun roleGetPageQueryFunction(): RoleGetPageQueryFunction = f2Function { cmd ->
+	fun rolePageFunction(): RolePageFunction = f2Function { cmd ->
 		val realmClient = AuthRealmClientBuilder().build(cmd.auth)
 
 		val size = cmd.page.size ?: PAGE_SIZE
@@ -31,8 +31,8 @@ class RoleGetPageQueryFunctionImpl {
 			.asResult(roles.size)
 	}
 
-	private fun List<RoleModel>.asResult(total: Int): RoleGetPageQueryResult {
-		return RoleGetPageQueryResult(
+	private fun List<RoleModel>.asResult(total: Int): RolePageResult {
+		return RolePageResult(
 			Page(
 				total = total,
 				items = this,

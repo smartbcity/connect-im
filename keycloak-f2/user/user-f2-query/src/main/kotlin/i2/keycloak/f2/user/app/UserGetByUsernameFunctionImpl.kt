@@ -5,8 +5,8 @@ import i2.commons.error.I2ApiError
 import i2.commons.error.asI2Exception
 import i2.keycloak.f2.user.app.model.asModel
 import i2.keycloak.f2.user.app.service.UserFinderService
-import i2.keycloak.f2.user.domain.features.query.UserGetByUsernameQueryFunction
-import i2.keycloak.f2.user.domain.features.query.UserGetByUsernameQueryResult
+import i2.keycloak.f2.user.domain.features.query.UserGetByUsernameFunction
+import i2.keycloak.f2.user.domain.features.query.UserGetByUsernameResult
 import i2.keycloak.f2.user.domain.model.UserModel
 import i2.keycloak.realm.client.config.AuthRealmClientBuilder
 import org.springframework.beans.factory.annotation.Autowired
@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration
 import s2.spring.utils.logger.Logger
 
 @Configuration
-class UserGetByUsernameQueryFunctionImpl {
+class UserGetByUsernameFunctionImpl {
 
 	@Autowired
 	private lateinit var userFinderService: UserFinderService
@@ -23,7 +23,7 @@ class UserGetByUsernameQueryFunctionImpl {
 	private val logger by Logger()
 
 	@Bean
-	fun userGetByUsernameQueryFunction(): UserGetByUsernameQueryFunction = f2Function { cmd ->
+	fun userGetByUsernameQueryFunction(): UserGetByUsernameFunction = f2Function { cmd ->
 		val realmClient = AuthRealmClientBuilder().build(cmd.auth)
 		try {
 			realmClient.users(cmd.realmId)
@@ -32,7 +32,7 @@ class UserGetByUsernameQueryFunctionImpl {
 				?.asModel { userId -> userFinderService.getRoles(userId, cmd.realmId, cmd.auth) }
 				.asResult()
 		} catch (e: NoSuchElementException) {
-			UserGetByUsernameQueryResult(null)
+			UserGetByUsernameResult(null)
 		} catch (e: Exception) {
 			val msg = "Error fetching User with username[${cmd.username}]"
 			logger.error(msg, e)
@@ -43,7 +43,7 @@ class UserGetByUsernameQueryFunctionImpl {
 		}
 	}
 
-	private fun UserModel?.asResult(): UserGetByUsernameQueryResult {
-		return UserGetByUsernameQueryResult(this)
+	private fun UserModel?.asResult(): UserGetByUsernameResult {
+		return UserGetByUsernameResult(this)
 	}
 }

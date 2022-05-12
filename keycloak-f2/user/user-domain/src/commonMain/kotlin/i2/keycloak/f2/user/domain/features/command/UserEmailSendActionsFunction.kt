@@ -9,7 +9,7 @@ import i2.keycloak.master.domain.RealmId
 import kotlin.js.JsExport
 import kotlin.js.JsName
 
-typealias UserEmailSendActionsFunction = F2Function<UserEmailSendActionsCommand, UserEmailSentActionsResult>
+typealias UserEmailSendActionsFunction = F2Function<UserEmailSendActionsCommand, UserEmailSendActionsResult>
 
 @JsExport
 @JsName("UserEmailSendActionsCommand")
@@ -23,7 +23,7 @@ class UserEmailSendActionsCommand(
 ): KeycloakF2Command
 
 @JsExport
-@JsName("UserEmailSentActionsResult")
-class UserEmailSentActionsResult(
+@JsName("UserEmailSendActionsResult")
+class UserEmailSendActionsResult(
     val id: UserId
 ): KeycloakF2Result
