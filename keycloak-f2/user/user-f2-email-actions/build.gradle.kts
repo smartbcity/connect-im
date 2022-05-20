@@ -1,6 +1,6 @@
 plugins {
-	id("io.spring.dependency-management")
-    kotlin("jvm")
+    id("city.smartb.fixers.gradle.kotlin.jvm")
+    id("city.smartb.fixers.gradle.publish")
     kotlin("plugin.spring")
 }
 
