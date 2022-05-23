@@ -1,8 +1,8 @@
 package i2.keycloak.f2.realm.app
 
 import f2.dsl.fnc.f2Function
-import i2.commons.error.I2ApiError
-import i2.commons.error.asI2Exception
+import i2.keycloak.f2.commons.domain.error.I2ApiError
+import i2.keycloak.f2.commons.domain.error.asI2Exception
 import i2.keycloak.f2.realm.domain.RealmModel
 import i2.keycloak.f2.realm.domain.features.query.RealmGetFunction
 import i2.keycloak.f2.realm.domain.features.query.RealmGetResult

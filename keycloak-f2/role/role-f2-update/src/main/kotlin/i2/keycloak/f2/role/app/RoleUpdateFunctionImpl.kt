@@ -1,8 +1,8 @@
 package i2.keycloak.f2.role.app
 
-import i2.commons.error.I2ApiError
-import i2.commons.error.asI2Exception
 import i2.keycloak.f2.commons.app.keycloakF2Function
+import i2.keycloak.f2.commons.domain.error.I2ApiError
+import i2.keycloak.f2.commons.domain.error.asI2Exception
 import i2.keycloak.f2.role.domain.features.command.RoleUpdateFunction
 import i2.keycloak.f2.role.domain.features.command.RoleUpdateResult
 import org.springframework.context.annotation.Bean

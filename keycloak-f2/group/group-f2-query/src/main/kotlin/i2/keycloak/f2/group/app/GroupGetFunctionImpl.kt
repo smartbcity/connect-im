@@ -1,8 +1,8 @@
 package i2.keycloak.f2.group.app
 
-import i2.commons.error.I2ApiError
-import i2.commons.error.asI2Exception
 import i2.keycloak.f2.commons.app.keycloakF2Function
+import i2.keycloak.f2.commons.domain.error.I2ApiError
+import i2.keycloak.f2.commons.domain.error.asI2Exception
 import i2.keycloak.f2.group.app.model.asModel
 import i2.keycloak.f2.group.domain.features.query.GroupGetFunction
 import i2.keycloak.f2.group.domain.features.query.GroupGetResult

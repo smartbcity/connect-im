@@ -1,8 +1,8 @@
 package i2.keycloak.f2.role.app
 
 import f2.dsl.fnc.f2Function
-import i2.commons.error.I2ApiError
-import i2.commons.error.asI2Exception
+import i2.keycloak.f2.commons.domain.error.I2ApiError
+import i2.keycloak.f2.commons.domain.error.asI2Exception
 import i2.keycloak.f2.role.domain.features.query.RoleGetByNameQueryFunction
 import i2.keycloak.f2.role.domain.features.query.RoleGetByNameQueryResult
 import i2.keycloak.realm.client.config.AuthRealmClientBuilder

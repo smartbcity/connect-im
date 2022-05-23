@@ -1,8 +1,8 @@
 package i2.keycloak.f2.user.app
 
 import f2.dsl.fnc.f2Function
-import i2.commons.error.I2ApiError
-import i2.commons.error.asI2Exception
+import i2.keycloak.f2.commons.domain.error.I2ApiError
+import i2.keycloak.f2.commons.domain.error.asI2Exception
 import i2.keycloak.f2.user.domain.features.command.UserUpdateCommand
 import i2.keycloak.f2.user.domain.features.command.UserUpdateFunction
 import i2.keycloak.f2.user.domain.features.command.UserUpdateResult

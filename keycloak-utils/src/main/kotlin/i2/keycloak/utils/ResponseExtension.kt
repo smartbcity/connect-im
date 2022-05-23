@@ -1,9 +1,9 @@
 package i2.keycloak.utils
 
-import i2.commons.error.I2ApiError
-import i2.commons.error.asI2Exception
-import org.apache.http.HttpStatus
+import i2.keycloak.f2.commons.domain.error.I2ApiError
+import i2.keycloak.f2.commons.domain.error.asI2Exception
 import javax.ws.rs.core.Response
+import org.apache.http.HttpStatus
 
 fun Response.toEntityCreatedId(): String {
 	return this.location.toString().substringAfterLast("/")
