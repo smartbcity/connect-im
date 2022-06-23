@@ -13,8 +13,10 @@ class UserGetGroupsFunctionImpl {
 	@Bean
 	fun userGetGroupsQueryFunction(): UserGetGroupsFunction = keycloakF2Function { cmd, realmClient ->
 		val items = realmClient.getUserResource(cmd.realmId, cmd.userId).groups().map {
-			UserGroup(it.id, it.name, it.realmRoles)
+			val group = realmClient.getGroupResource(it.id).toRepresentation()
+			UserGroup(group.id, group.name, group.realmRoles)
 		}
+
 		UserGetGroupsResult(
 			items
 		)
