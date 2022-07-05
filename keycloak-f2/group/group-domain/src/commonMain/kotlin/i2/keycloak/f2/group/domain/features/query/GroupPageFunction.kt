@@ -12,8 +12,9 @@ import i2.keycloak.master.domain.RealmId
 typealias GroupPageFunction = F2Function<GroupPageQuery, GroupPageResult>
 
 class GroupPageQuery(
-	val name: String? = null,
+	val search: String? = null,
 	val role: String? = null,
+	val attributes: Map<String, String> = emptyMap(),
 	val page: PagePagination,
 	val realmId: RealmId,
 	override val auth: AuthRealm,

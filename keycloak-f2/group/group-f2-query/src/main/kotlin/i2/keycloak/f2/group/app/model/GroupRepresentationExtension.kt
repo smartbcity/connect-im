@@ -6,6 +6,6 @@ import org.keycloak.representations.idm.GroupRepresentation
 fun GroupRepresentation.asModel(getComposites: (roleName: String) -> List<String>) = GroupModel(
     id = id,
     name = name,
-    attributes = attributes ?: emptyMap(),
+    attributes = attributes.orEmpty().mapValues { (_, value) -> value.first() },
     roles = realmRoles.orEmpty().flatMap{ getComposites(it) + it }.distinct()
 )

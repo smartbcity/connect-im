@@ -8,10 +8,10 @@ import i2.keycloak.f2.group.app.model.asModel
 import i2.keycloak.f2.group.domain.features.query.GroupPageFunction
 import i2.keycloak.f2.group.domain.features.query.GroupPageResult
 import i2.keycloak.realm.client.config.AuthRealmClient
-import javax.ws.rs.NotFoundException
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import s2.spring.utils.logger.Logger
+import javax.ws.rs.NotFoundException
 
 @Configuration
 class GroupPageFunctionImpl {
@@ -26,26 +26,35 @@ class GroupPageFunctionImpl {
 				role.name to composites.toList()
 			}
 
-			var groups = client.groups(cmd.realmId).groups("", 0, client.countGroups(cmd.realmId), false)
+			var groups = client.groups(cmd.realmId)
+				.groups("", 0, Int.MAX_VALUE, false)
+				.asSequence()
+				.map { group -> group.asModel { roles[it].orEmpty() } }
 
-			cmd.name?.let {
-				groups = groups.filter { group -> group.name.contains(it, true) }
+			cmd.search?.let { searchFilter ->
+				groups = groups.filter { group -> group.name.contains(searchFilter, true) }
 			}
 
-			cmd.role?.let {
-				groups = groups.filter { group -> group.realmRoles.contains(it) }
+			cmd.role?.let { roleFilter ->
+				groups = groups.filter { group -> roleFilter in group.roles }
+			}
+
+			cmd.attributes.forEach { (key, value) ->
+				groups = groups.filter { group -> value == group.attributes[key] }
 			}
 
 			val count = groups.count()
 
-			if (cmd.page.page != null && cmd.page.size != null) {
-				groups = groups.chunked(cmd.page.size!!).getOrNull(cmd.page.page!!).orEmpty()
+			val groupsPage = if (cmd.page.size != null && cmd.page.page != null) {
+				groups.chunked(cmd.page.size!!).elementAtOrNull(cmd.page.page!!).orEmpty()
+			} else {
+				groups.toList()
 			}
 
 			GroupPageResult(
 				page = Page(
 					total = count,
-					items = groups.map { group -> group.asModel{ roles[it].orEmpty().toList() } }
+					items = groupsPage
 				)
 			)
 		} catch (e: NotFoundException) {
