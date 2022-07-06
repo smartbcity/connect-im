@@ -20,7 +20,7 @@ class UserUpdateCommand(
     val firstname: String?,
     val lastname: String?,
     val email: String,
-    val metadata: Map<String, String>,
+    val attributes: Map<String, String>,
 ): Command
 
 @JsExport

@@ -15,7 +15,7 @@ typealias GroupCreateFunction = F2Function<GroupCreateCommand, GroupCreateResult
 @JsName("GroupCreateCommand")
 class GroupCreateCommand(
     val name: String,
-    val attributes: Map<String, List<String>>,
+    val attributes: Map<String, String>,
     val roles: List<String>,
     override val auth: AuthRealm,
     val realmId: RealmId,

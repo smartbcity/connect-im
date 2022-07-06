@@ -23,13 +23,13 @@ class GroupUpdateFunctionImpl {
 
 			groupResource.toRepresentation().apply {
 				name = cmd.name
-				attributes = cmd.attributes
+				attributes = cmd.attributes.mapValues { (_, value) -> listOfNotNull(value) }
 			}.let(groupResource::update)
 
 			GroupUpdateResult(cmd.id)
 		} catch (e: Exception) {
 			throw I2ApiError(
-				description = "Realm[${cmd.realmId}] wGroup[${cmd.id}] Error updating",
+				description = "Realm[${cmd.realmId}] Group[${cmd.id}] Error updating",
 				payload = emptyMap()
 			).asI2Exception(e)
 		}

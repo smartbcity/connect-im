@@ -51,7 +51,7 @@ class UserCreateFunctionImpl {
 		userRep.lastName = user.lastname
 		userRep.isEnabled = true
 		userRep.isEmailVerified = true
-		user.metadata.forEach {
+		user.attributes.forEach {
 			userRep.singleAttribute(it.key, it.value)
 		}
 		user.password?.let { password ->

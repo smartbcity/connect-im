@@ -20,7 +20,7 @@ class UserCreateCommand(
     val lastname: String?,
     val email: String,
     val isEnable: Boolean,
-    val metadata: Map<String, String>,
+    val attributes: Map<String, String>,
     val auth: AuthRealm,
     val password: String? = null
 ) : Command

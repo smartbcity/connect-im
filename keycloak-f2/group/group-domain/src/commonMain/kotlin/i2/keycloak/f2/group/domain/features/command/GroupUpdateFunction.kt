@@ -16,7 +16,7 @@ typealias GroupUpdateFunction = F2Function<GroupUpdateCommand, GroupUpdateResult
 class GroupUpdateCommand(
     val id: GroupId,
     val name: String,
-    val attributes: Map<String, List<String>>,
+    val attributes: Map<String, String>,
     val roles: List<String>,
     override val auth: AuthRealm,
     val realmId: RealmId,

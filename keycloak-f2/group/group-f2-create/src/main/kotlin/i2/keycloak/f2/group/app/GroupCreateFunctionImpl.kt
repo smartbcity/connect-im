@@ -44,7 +44,7 @@ class GroupCreateFunctionImpl {
 	private fun toGroupRepresentation(cmd: GroupCreateCommand): GroupRepresentation {
 		return GroupRepresentation().apply {
 			name = cmd.name
-			attributes = cmd.attributes
+			attributes = cmd.attributes.mapValues { (_, value) -> listOfNotNull(value) }
 		}
 	}
 

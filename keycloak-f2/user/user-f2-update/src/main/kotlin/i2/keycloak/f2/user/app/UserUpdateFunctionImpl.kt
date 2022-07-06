@@ -38,7 +38,7 @@ class UserUpdateFunctionImpl {
 		this.firstName = command.firstname
 		this.lastName = command.lastname
 
-		command.metadata.forEach {
+		command.attributes.forEach {
 			this.singleAttribute(it.key, it.value)
 		}
 
