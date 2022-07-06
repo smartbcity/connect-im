@@ -21,40 +21,54 @@ class UserPageFunctionImpl {
 
 	@Bean
 	fun userPageFunctionImpl(): UserPageFunction = keycloakF2Function { cmd, realmClient ->
-		val usersRepresentation = if (cmd.groupId == null) {
-			getAllUsers(realmClient, cmd.realmId)
+		val userRepresentations = if (cmd.groupId == null) {
+			listUsers(realmClient, cmd.realmId)
 		} else {
-			getUserOfGroup(realmClient, cmd.realmId, cmd.groupId!!)
+			listUsersOfGroup(realmClient, cmd.realmId, cmd.groupId!!)
 		}
 
-		var users = usersRepresentation.asModels { userId -> userFinderService.getRoles(userId, cmd.realmId, cmd.auth) }
+		var users = userRepresentations.asModels { userId ->
+			userFinderService.getRoles(userId, cmd.realmId, cmd.auth)
+		}.asSequence()
 
-		cmd.email?.let {
-			users = users.filter { user -> if (user.email == null) false else user.email!!.contains(it) }
+		cmd.search?.split(" ")
+			?.map(String::trim)
+			?.forEach { searchWord ->
+				users = users.filter { user ->
+					user.email.orEmpty().contains(searchWord, true) ||
+							user.firstName.orEmpty().contains(searchWord, true) ||
+							user.lastName.orEmpty().contains(searchWord, true)
+				}
+			}
+
+		cmd.role?.let { roleFilter ->
+			users = users.filter { user -> roleFilter in user.roles.assignedRoles }
 		}
 
-		cmd.role?.let {
-			users = users.filter { user -> user.roles.assignedRoles.contains(it) }
+		cmd.attributes.forEach { (key, value) ->
+			users = users.filter { user -> value == user.attributes[key] }
 		}
 
 		val count = users.count()
-		if (cmd.page.size != null && cmd.page.page != null) {
-			users = users.chunked(cmd.page.size!!).getOrNull(cmd.page.page!!).orEmpty()
+		val usersPage = if (cmd.page.size != null && cmd.page.page != null) {
+			users.chunked(cmd.page.size!!).elementAtOrNull(cmd.page.page!!).orEmpty()
+		} else {
+			users.toList()
 		}
 
 		UserPageResult(
 			Page(
 				total = count,
-				items = users
+				items = usersPage
 			)
 		)
 	}
 
-	private fun getAllUsers(client: AuthRealmClient, realmId: String): List<UserRepresentation> {
-		return client.keycloak.realm(realmId).users().list()
+	private fun listUsers(client: AuthRealmClient, realmId: String): List<UserRepresentation> {
+		return client.users(realmId).list()
 	}
 
-	private fun getUserOfGroup(client: AuthRealmClient, realmId: String, groupId: GroupId): List<UserRepresentation> {
+	private fun listUsersOfGroup(client: AuthRealmClient, realmId: String, groupId: GroupId): List<UserRepresentation> {
 		return client.getGroupResource(realmId, groupId).members()
 	}
 }

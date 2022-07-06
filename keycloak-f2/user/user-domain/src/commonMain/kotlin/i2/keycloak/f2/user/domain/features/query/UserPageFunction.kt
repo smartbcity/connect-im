@@ -17,8 +17,9 @@ typealias UserPageFunction = F2Function<UserPageQuery, UserPageResult>
 @JsName("UserPageQuery")
 class UserPageQuery(
     val groupId: String? = null,
-    val email: String? = null,
+    val search: String? = null,
     val role: String? = null,
+    val attributes: Map<String, String> = emptyMap(),
     val page: PagePagination,
     val realmId: RealmId,
     override val auth: AuthRealm,
