@@ -15,7 +15,7 @@ suspend fun UserRepresentation.asModel(getRealmRoles: suspend (UserId) -> UserRo
 		firstName = firstName,
 		lastName = lastName,
 		roles = getRealmRoles(id),
-		attributes = attributes.orEmpty(),
+		attributes = attributes.orEmpty().mapValues { (_, value) -> value.first() },
 		creationDate = createdTimestamp
 	)
 }

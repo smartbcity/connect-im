@@ -13,6 +13,6 @@ class UserModel(
 	val firstName: String?,
 	val lastName: String?,
 	val roles: UserRoles,
-	val attributes: Map<String, List<String>>,
+	val attributes: Map<String, String>,
 	val creationDate: Long
 )
