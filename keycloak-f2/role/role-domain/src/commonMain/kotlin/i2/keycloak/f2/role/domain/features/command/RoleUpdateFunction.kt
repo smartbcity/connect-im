@@ -10,7 +10,7 @@ import i2.keycloak.master.domain.RealmId
 import kotlin.js.JsExport
 import kotlin.js.JsName
 
-typealias RoleUpdateFunction = F2Function<RoleUpdateCommand, RoleUpdateResult>
+typealias RoleUpdateFunction = F2Function<RoleUpdateCommand, RoleUpdatedEvent>
 
 @JsExport
 @JsName("RoleUpdateCommand")
@@ -24,7 +24,7 @@ class RoleUpdateCommand(
 ): KeycloakF2Command
 
 @JsExport
-@JsName("RoleUpdateResult")
-class RoleUpdateResult(
+@JsName("RoleUpdatedEvent")
+class RoleUpdatedEvent(
     val id: RoleId
 ): KeycloakF2Result

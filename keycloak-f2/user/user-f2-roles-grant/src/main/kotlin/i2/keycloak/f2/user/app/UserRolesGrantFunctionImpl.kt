@@ -3,7 +3,7 @@ package i2.keycloak.f2.user.app
 import f2.dsl.fnc.f2Function
 import i2.keycloak.f2.user.domain.features.command.UserRolesGrantCommand
 import i2.keycloak.f2.user.domain.features.command.UserRolesGrantFunction
-import i2.keycloak.f2.user.domain.features.command.UserRolesGrantResult
+import i2.keycloak.f2.user.domain.features.command.UserRolesGrantedEvent
 import i2.keycloak.f2.user.domain.model.UserId
 import i2.keycloak.master.domain.RealmId
 import i2.keycloak.realm.client.config.AuthRealmClient
@@ -24,7 +24,7 @@ class UserRolesGrantFunctionImpl {
 		} else {
 			realmClient.addUserClientRoles(cmd)
 		}
-		UserRolesGrantResult(cmd.id)
+		UserRolesGrantedEvent(cmd.id)
 	}
 
 	fun AuthRealmClient.addUserRealmRole(realmId: RealmId, userId: UserId, roles: List<String>) {

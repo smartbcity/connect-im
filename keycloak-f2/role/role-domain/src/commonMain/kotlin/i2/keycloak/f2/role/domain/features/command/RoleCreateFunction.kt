@@ -10,7 +10,7 @@ import i2.keycloak.master.domain.RealmId
 import kotlin.js.JsExport
 import kotlin.js.JsName
 
-typealias RoleCreateFunction = F2Function<RoleCreateCommand, RoleCreateResult>
+typealias RoleCreateFunction = F2Function<RoleCreateCommand, RoleCreatedEvent>
 
 @JsExport
 @JsName("RoleCreateCommand")
@@ -24,7 +24,7 @@ class RoleCreateCommand(
 ): KeycloakF2Command
 
 @JsExport
-@JsName("RoleCreateResult")
-class RoleCreateResult(
+@JsName("RoleCreatedEvent")
+class RoleCreatedEvent(
 	val id: RoleId
 ): KeycloakF2Result

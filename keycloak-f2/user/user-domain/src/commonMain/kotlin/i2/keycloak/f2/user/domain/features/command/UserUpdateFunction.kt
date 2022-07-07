@@ -9,7 +9,7 @@ import i2.keycloak.master.domain.RealmId
 import kotlin.js.JsExport
 import kotlin.js.JsName
 
-typealias UserUpdateFunction = F2Function<UserUpdateCommand, UserUpdateResult>
+typealias UserUpdateFunction = F2Function<UserUpdateCommand, UserUpdatedEvent>
 
 @JsExport
 @JsName("UserUpdateCommand")
@@ -24,7 +24,7 @@ class UserUpdateCommand(
 ): Command
 
 @JsExport
-@JsName("UserUpdateResult")
-class UserUpdateResult(
+@JsName("UserUpdatedEvent")
+class UserUpdatedEvent(
 	val id: UserId
 ): Event

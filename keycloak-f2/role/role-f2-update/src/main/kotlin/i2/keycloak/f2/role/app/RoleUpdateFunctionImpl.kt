@@ -4,7 +4,7 @@ import i2.keycloak.f2.commons.app.keycloakF2Function
 import i2.keycloak.f2.commons.domain.error.I2ApiError
 import i2.keycloak.f2.commons.domain.error.asI2Exception
 import i2.keycloak.f2.role.domain.features.command.RoleUpdateFunction
-import i2.keycloak.f2.role.domain.features.command.RoleUpdateResult
+import i2.keycloak.f2.role.domain.features.command.RoleUpdatedEvent
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
@@ -30,7 +30,7 @@ class RoleUpdateFunctionImpl {
 
             roleResource.update(roleRepresentation)
 
-            RoleUpdateResult(cmd.name)
+            RoleUpdatedEvent(cmd.name)
         } catch (e: Exception) {
             throw I2ApiError(
                 description = "Realm[${cmd.realmId}] Role[${cmd.name}] Error updating",

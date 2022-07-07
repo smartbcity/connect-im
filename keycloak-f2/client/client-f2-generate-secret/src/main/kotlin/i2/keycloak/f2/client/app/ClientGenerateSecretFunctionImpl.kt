@@ -2,7 +2,7 @@ package i2.keycloak.f2.client.app
 
 import f2.dsl.fnc.f2Function
 import i2.keycloak.f2.client.domain.features.command.ClientGenerateSecretFunction
-import i2.keycloak.f2.client.domain.features.command.ClientGenerateSecretResult
+import i2.keycloak.f2.client.domain.features.command.ClientGeneratedSecretEvent
 import i2.keycloak.f2.commons.domain.error.I2ApiError
 import i2.keycloak.f2.commons.domain.error.asI2Exception
 import i2.keycloak.realm.client.config.AuthRealmClientBuilder
@@ -19,7 +19,7 @@ class ClientGenerateSecretFunctionImpl {
             val newSecret = realmClient.getClientResource(cmd.realmId, cmd.id)
                     .generateNewSecret()
 
-            ClientGenerateSecretResult(newSecret.value)
+            ClientGeneratedSecretEvent(newSecret.value)
         } catch (e: Exception) {
             throw I2ApiError(
                 description = "Realm[${cmd.realmId}] Client[${cmd.id}] Error generating secret",

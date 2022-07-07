@@ -21,5 +21,5 @@ class RealmGetQuery(
 @JsExport
 @JsName("RealmGetResult")
 class RealmGetResult(
-	val realm: RealmModel?
+	val item: RealmModel?
 ): Event

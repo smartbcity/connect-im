@@ -4,7 +4,7 @@ import i2.keycloak.f2.commons.app.keycloakF2Function
 import i2.keycloak.f2.role.domain.RoleName
 import i2.keycloak.f2.role.domain.features.command.RoleCreateCommand
 import i2.keycloak.f2.role.domain.features.command.RoleCreateFunction
-import i2.keycloak.f2.role.domain.features.command.RoleCreateResult
+import i2.keycloak.f2.role.domain.features.command.RoleCreatedEvent
 import i2.keycloak.master.domain.RealmId
 import i2.keycloak.realm.client.config.AuthRealmClient
 import org.keycloak.representations.idm.RoleRepresentation
@@ -17,7 +17,7 @@ class RoleCreateFunctionImpl {
 	@Bean
 	fun roleCreateFunction(): RoleCreateFunction = keycloakF2Function { cmd, client ->
 		client.initRole(cmd)
-		RoleCreateResult(cmd.name)
+		RoleCreatedEvent(cmd.name)
 	}
 
 	private fun AuthRealmClient.initRole(cmd: RoleCreateCommand) {

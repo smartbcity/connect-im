@@ -3,7 +3,7 @@ package i2.keycloak.f2.group.app
 import i2.keycloak.f2.commons.app.keycloakF2Function
 import i2.keycloak.f2.group.domain.features.command.GroupCreateCommand
 import i2.keycloak.f2.group.domain.features.command.GroupCreateFunction
-import i2.keycloak.f2.group.domain.features.command.GroupCreateResult
+import i2.keycloak.f2.group.domain.features.command.GroupCreatedEvent
 import i2.keycloak.f2.group.domain.model.GroupId
 import i2.keycloak.realm.client.config.AuthRealmClient
 import i2.keycloak.realm.client.config.realmsResource
@@ -24,7 +24,7 @@ class GroupCreateFunctionImpl {
 
 		client.addRolesToGroup(groupId, cmd)
 
-		GroupCreateResult(groupId)
+		GroupCreatedEvent(groupId)
 	}
 
 	private fun AuthRealmClient.createSubGroup(parentGroup: GroupId, cmd: GroupCreateCommand): GroupId {

@@ -9,7 +9,7 @@ import i2.keycloak.master.domain.RealmId
 import kotlin.js.JsExport
 import kotlin.js.JsName
 
-typealias ClientServiceAccountRolesGrantFunction = F2Function<ClientServiceAccountRolesGrantCommand, ClientServiceAccountRolesGrantResult>
+typealias ClientServiceAccountRolesGrantFunction = F2Function<ClientServiceAccountRolesGrantCommand, ClientServiceAccountRolesGrantedEvent>
 
 @JsExport
 @JsName("ClientServiceAccountRolesGrantCommand")
@@ -22,7 +22,7 @@ class ClientServiceAccountRolesGrantCommand(
 ): Command
 
 @JsExport
-@JsName("ClientServiceAccountRolesGrantResult")
-class ClientServiceAccountRolesGrantResult(
+@JsName("ClientServiceAccountRolesGrantedEvent")
+class ClientServiceAccountRolesGrantedEvent(
     val id: String
 ): Event

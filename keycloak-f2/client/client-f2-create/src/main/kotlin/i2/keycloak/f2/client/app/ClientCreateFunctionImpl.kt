@@ -3,7 +3,7 @@ package i2.keycloak.f2.client.app
 import f2.dsl.fnc.f2Function
 import i2.keycloak.f2.client.domain.features.command.ClientCreateCommand
 import i2.keycloak.f2.client.domain.features.command.ClientCreateFunction
-import i2.keycloak.f2.client.domain.features.command.ClientCreateResult
+import i2.keycloak.f2.client.domain.features.command.ClientCreatedEvent
 import i2.keycloak.realm.client.config.AuthRealmClient
 import i2.keycloak.realm.client.config.AuthRealmClientBuilder
 import i2.keycloak.utils.toEntityCreatedId
@@ -20,7 +20,7 @@ class ClientCreateFunctionImpl {
 		buildClient(cmd).let { client ->
 			AuthRealmClientBuilder().build(cmd.auth).createClient(cmd.realmId, client)
 		}.let { id ->
-			ClientCreateResult(id)
+			ClientCreatedEvent(id)
 		}
 	}
 

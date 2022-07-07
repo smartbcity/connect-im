@@ -7,7 +7,7 @@ import i2.keycloak.master.domain.RealmId
 import kotlin.js.JsExport
 import kotlin.js.JsName
 
-typealias ClientGenerateSecretFunction = F2Function<ClientGenerateSecretCommand, ClientGenerateSecretResult>
+typealias ClientGenerateSecretFunction = F2Function<ClientGenerateSecretCommand, ClientGeneratedSecretEvent>
 
 @JsExport
 @JsName("ClientGenerateSecretCommand")
@@ -18,7 +18,7 @@ class ClientGenerateSecretCommand(
 )
 
 @JsExport
-@JsName("ClientGenerateSecretResult")
-class ClientGenerateSecretResult(
+@JsName("ClientGeneratedSecretEvent")
+class ClientGeneratedSecretEvent(
     val secret: String
 )

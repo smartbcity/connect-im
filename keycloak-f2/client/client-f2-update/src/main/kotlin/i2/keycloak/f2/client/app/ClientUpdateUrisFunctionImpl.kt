@@ -2,7 +2,7 @@ package i2.keycloak.f2.client.app
 
 import f2.dsl.fnc.f2Function
 import i2.keycloak.f2.client.domain.features.command.ClientUpdateUrisFunction
-import i2.keycloak.f2.client.domain.features.command.ClientUpdateUrisResult
+import i2.keycloak.f2.client.domain.features.command.ClientUpdatedUrisEvent
 import i2.keycloak.f2.commons.domain.error.I2ApiError
 import i2.keycloak.f2.commons.domain.error.asI2Exception
 import i2.keycloak.realm.client.config.AuthRealmClientBuilder
@@ -25,7 +25,7 @@ class ClientUpdateUrisFunctionImpl {
 
             clientResource.update(clientRep)
 
-            ClientUpdateUrisResult(cmd.id)
+            ClientUpdatedUrisEvent(cmd.id)
         } catch (e: Exception) {
             throw I2ApiError(
                 description = "Realm[${cmd.realmId}] Client[${cmd.id}] Error updating URIs",

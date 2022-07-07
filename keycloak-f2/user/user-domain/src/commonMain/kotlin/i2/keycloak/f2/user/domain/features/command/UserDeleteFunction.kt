@@ -9,7 +9,7 @@ import i2.keycloak.master.domain.RealmId
 import kotlin.js.JsExport
 import kotlin.js.JsName
 
-typealias UserDeleteFunction = F2Function<UserDeleteCommand, UserDeleteResult>
+typealias UserDeleteFunction = F2Function<UserDeleteCommand, UserDeletedEvent>
 
 @JsExport
 @JsName("UserDeleteCommand")
@@ -20,7 +20,7 @@ class UserDeleteCommand(
 ) : Command
 
 @JsExport
-@JsName("UserDeleteResult")
-class UserDeleteResult(
+@JsName("UserDeletedEvent")
+class UserDeletedEvent(
 	val id: UserId
 ) : Event

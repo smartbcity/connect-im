@@ -8,7 +8,7 @@ import i2.keycloak.master.domain.AuthRealm
 import kotlin.js.JsExport
 import kotlin.js.JsName
 
-typealias UserRolesRevokeFunction = F2Function<UserRolesRevokeCommand, UserRolesRevokeResult>
+typealias UserRolesRevokeFunction = F2Function<UserRolesRevokeCommand, UserRolesRevokedEvent>
 
 @JsExport
 @JsName("UserRolesRevokeCommand")
@@ -19,7 +19,7 @@ class UserRolesRevokeCommand(
 ) : Command
 
 @JsExport
-@JsName("UserRolesRevokeResult")
-class UserRolesRevokeResult(
+@JsName("UserRolesRevokedEvent")
+class UserRolesRevokedEvent(
 	val id: String
 ) : Event

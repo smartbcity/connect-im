@@ -9,7 +9,7 @@ import i2.keycloak.master.domain.RealmId
 import kotlin.js.JsExport
 import kotlin.js.JsName
 
-typealias UserDisableFunction = F2Function<UserDisableCommand, UserDisableResult>
+typealias UserDisableFunction = F2Function<UserDisableCommand, UserDisabledEvent>
 
 @JsExport
 @JsName("UserDisableCommand")
@@ -20,7 +20,7 @@ class UserDisableCommand(
 ) : Command
 
 @JsExport
-@JsName("UserDisableResult")
-class UserDisableResult(
+@JsName("UserDisabledEvent")
+class UserDisabledEvent(
 	val id: UserId
 ) : Event

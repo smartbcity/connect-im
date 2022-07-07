@@ -2,7 +2,7 @@ package i2.keycloak.f2.role.app
 
 import i2.keycloak.f2.commons.app.keycloakF2Function
 import i2.keycloak.f2.role.domain.features.command.RoleAddCompositesFunction
-import i2.keycloak.f2.role.domain.features.command.RoleAddCompositesResult
+import i2.keycloak.f2.role.domain.features.command.RoleAddedCompositesEvent
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
@@ -16,6 +16,6 @@ class RoleAddCompositesFunctionImpl {
         }
         client.getRoleResource(cmd.realmId, cmd.roleName).addComposites(composites)
 
-        RoleAddCompositesResult(cmd.roleName)
+        RoleAddedCompositesEvent(cmd.roleName)
     }
 }

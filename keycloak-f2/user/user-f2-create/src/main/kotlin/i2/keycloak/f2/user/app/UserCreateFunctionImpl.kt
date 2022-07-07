@@ -3,7 +3,7 @@ package i2.keycloak.f2.user.app
 import f2.dsl.fnc.f2Function
 import i2.keycloak.f2.user.domain.features.command.UserCreateCommand
 import i2.keycloak.f2.user.domain.features.command.UserCreateFunction
-import i2.keycloak.f2.user.domain.features.command.UserCreateResult
+import i2.keycloak.f2.user.domain.features.command.UserCreatedCommand
 import i2.keycloak.realm.client.config.AuthRealmClient
 import i2.keycloak.realm.client.config.AuthRealmClientBuilder
 import i2.keycloak.utils.isFailure
@@ -21,7 +21,7 @@ class UserCreateFunctionImpl {
 	fun userCreateFunction(): UserCreateFunction = f2Function { cmd ->
 		val serviceClient = AuthRealmClientBuilder().build(cmd.auth)
 		val userId = createUser(serviceClient, cmd)
-		UserCreateResult(userId)
+		UserCreatedCommand(userId)
 	}
 
 	private fun createUser(client: AuthRealmClient, cmd: UserCreateCommand): String {

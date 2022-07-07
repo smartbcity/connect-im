@@ -22,5 +22,5 @@ class UserGetByEmailQuery(
 @JsExport
 @JsName("UserGetByEmailQueryResult")
 class UserGetByEmailResult(
-	val user: UserModel?
+	val item: UserModel?
 ): Event

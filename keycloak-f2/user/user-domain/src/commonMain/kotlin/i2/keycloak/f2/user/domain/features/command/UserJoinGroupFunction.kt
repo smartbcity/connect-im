@@ -10,7 +10,7 @@ import i2.keycloak.master.domain.RealmId
 import kotlin.js.JsExport
 import kotlin.js.JsName
 
-typealias UserJoinGroupFunction = F2Function<UserJoinGroupCommand, UserGroupJoinResult>
+typealias UserJoinGroupFunction = F2Function<UserJoinGroupCommand, UserJoinedGroupEvent>
 
 @JsExport
 @JsName("UserJoinGroupCommand")
@@ -23,8 +23,8 @@ class UserJoinGroupCommand(
 ): KeycloakF2Command
 
 @JsExport
-@JsName("UserGroupJoinResult")
-class UserGroupJoinResult(
+@JsName("UserJoinedGroupEvent")
+class UserJoinedGroupEvent(
 	val id: UserId,
 	val groupId: GroupId,
 	val groupsLeft: List<GroupId>

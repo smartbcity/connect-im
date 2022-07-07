@@ -21,5 +21,5 @@ class RoleGetByNameQuery(
 @JsExport
 @JsName("RoleGetByNameQueryResult")
 class RoleGetByNameQueryResult(
-    val role: RoleModel?
+    val item: RoleModel?
 )

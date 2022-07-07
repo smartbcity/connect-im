@@ -7,7 +7,7 @@ import i2.keycloak.master.domain.AuthRealm
 import kotlin.js.JsExport
 import kotlin.js.JsName
 
-typealias RealmCreateFunction = F2Function<RealmCreateCommand, RealmCreateResult>
+typealias RealmCreateFunction = F2Function<RealmCreateCommand, RealmCreatedEvent>
 
 @JsExport
 @JsName("RealmCreateCommand")
@@ -20,7 +20,7 @@ class RealmCreateCommand(
 ): Command
 
 @JsExport
-@JsName("RealmCreateResult")
-class RealmCreateResult(
+@JsName("RealmCreatedEvent")
+class RealmCreatedEvent(
 	val id: String
 ): Event

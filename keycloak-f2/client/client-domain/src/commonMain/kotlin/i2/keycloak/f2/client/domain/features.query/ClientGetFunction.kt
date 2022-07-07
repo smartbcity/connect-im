@@ -23,5 +23,5 @@ class ClientGetQuery(
 @JsExport
 @JsName("ClientGetResult")
 class ClientGetResult(
-	val client: ClientModel?
+	val item: ClientModel?
 ): Event

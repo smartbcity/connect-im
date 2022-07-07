@@ -9,7 +9,7 @@ import i2.keycloak.master.domain.RealmId
 import kotlin.js.JsExport
 import kotlin.js.JsName
 
-typealias RoleAddCompositesFunction = F2Function<RoleAddCompositesCommand, RoleAddCompositesResult>
+typealias RoleAddCompositesFunction = F2Function<RoleAddCompositesCommand, RoleAddedCompositesEvent>
 
 @JsExport
 @JsName("RoleAddCompositesCommand")
@@ -21,7 +21,7 @@ class RoleAddCompositesCommand(
 ): KeycloakF2Command
 
 @JsExport
-@JsName("RoleAddCompositesResult")
-class RoleAddCompositesResult(
+@JsName("RoleAddedCompositesEvent")
+class RoleAddedCompositesEvent(
 	val id: String
 ): KeycloakF2Result
