@@ -19,7 +19,6 @@ class UserUpdateCommand(
     val auth: AuthRealm,
     val firstname: String?,
     val lastname: String?,
-    val email: String,
     val attributes: Map<String, String>,
 ): Command
 

@@ -41,14 +41,5 @@ class UserUpdateFunctionImpl {
 		command.attributes.forEach {
 			this.singleAttribute(it.key, it.value)
 		}
-
-//		var emailHasChanged = false
-		if (this.email != command.email) {
-//			emailHasChanged = true
-			this.isEmailVerified = false
-		}
-		this.email = command.email
-
-//		if (emailHasChanged) sendEmailVerification(userId)
 	}
 }

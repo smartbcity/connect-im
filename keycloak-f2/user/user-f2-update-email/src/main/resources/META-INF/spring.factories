@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-i2.keycloak.f2.user.app.UserUpdatePasswordFunctionImpl
+i2.keycloak.f2.user.app.UserUpdateEmailFunctionImpl
