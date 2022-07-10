@@ -12,7 +12,6 @@ import org.keycloak.representations.idm.GroupRepresentation
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
-
 @Configuration
 class GroupCreateFunctionImpl {
 
@@ -52,7 +51,6 @@ class GroupCreateFunctionImpl {
 		val roles = cmd.roles.map { role ->
 			realm.roles()[role].toRepresentation()
 		}
-
-		this.getGroupResource(cmd.realmId, groupId).roles().realmLevel().add(roles)
+		getGroupResource(cmd.realmId, groupId).roles().realmLevel().add(roles)
 	}
 }
