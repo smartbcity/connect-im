@@ -15,5 +15,4 @@ ENV KC_HOSTNAME=localhost
 
 COPY i2-keycloak/config/themes/i2 /opt/keycloak/themes/i2/
 
-ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start"]
-
+ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "--spi-login-protocol-openid-connect-legacy-logout-redirect-uri=true","start"]
