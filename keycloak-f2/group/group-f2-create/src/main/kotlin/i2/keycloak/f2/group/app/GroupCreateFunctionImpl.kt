@@ -5,7 +5,6 @@ import i2.keycloak.f2.group.domain.features.command.GroupCreateCommand
 import i2.keycloak.f2.group.domain.features.command.GroupCreateFunction
 import i2.keycloak.f2.group.domain.features.command.GroupCreatedEvent
 import i2.keycloak.f2.group.domain.model.GroupId
-import i2.keycloak.f2.group.domain.model.GroupModel
 import i2.keycloak.realm.client.config.AuthRealmClient
 import i2.keycloak.realm.client.config.realmsResource
 import i2.keycloak.utils.handleResponseError
@@ -44,9 +43,7 @@ class GroupCreateFunctionImpl {
 	private fun toGroupRepresentation(cmd: GroupCreateCommand): GroupRepresentation {
 		return GroupRepresentation().apply {
 			name = cmd.name
-			attributes = cmd.attributes
-				.plus(GroupModel::creationDate.name to System.currentTimeMillis().toString())
-				.mapValues { (_, value) -> listOfNotNull(value) }
+			attributes = cmd.attributes.mapValues { (_, value) -> listOfNotNull(value) }
 		}
 	}
 

@@ -7,6 +7,5 @@ fun GroupRepresentation.asModel(getComposites: (roleName: String) -> List<String
     id = id,
     name = name,
     attributes = attributes.orEmpty().mapValues { (_, value) -> value.first() },
-    roles = realmRoles.orEmpty().flatMap{ getComposites(it) + it }.distinct(),
-    creationDate = attributes[GroupModel::creationDate.name]?.firstOrNull()?.toLong() ?: 0
+    roles = realmRoles.orEmpty().flatMap{ getComposites(it) + it }.distinct()
 )

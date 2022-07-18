@@ -6,6 +6,5 @@ data class GroupModel(
     val id: GroupId,
     val name: String,
     val attributes: Map<String, String>,
-    val roles: List<String>,
-    val creationDate: Long
+    val roles: List<String>
 )
