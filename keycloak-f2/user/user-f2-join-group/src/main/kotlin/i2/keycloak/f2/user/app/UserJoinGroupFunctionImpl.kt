@@ -14,7 +14,7 @@ class UserJoinGroupFunctionImpl {
 	@Bean
 	fun userJoinGroupFunction(): UserJoinGroupFunction = keycloakF2Function { cmd, client ->
 		try {
-			val groupsLeft = if(cmd.leaveOtherGroups == true) {
+			val groupsLeft = if (cmd.leaveOtherGroups == true) {
 				client.getUserResource(cmd.realmId, cmd.id)
 					.groups().map { group ->
 						client.getUserResource(cmd.realmId, cmd.id)
