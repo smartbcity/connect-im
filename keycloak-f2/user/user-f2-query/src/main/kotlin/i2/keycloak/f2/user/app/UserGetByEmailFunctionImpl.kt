@@ -22,8 +22,8 @@ class UserGetByEmailFunctionImpl {
 		userFinderService: UserFinderService
 	): UserGetByEmailFunction = keycloakF2Function { cmd, client ->
 		try {
-			client.users(cmd.realmId).search(null, null, null, cmd.email, 0, 1)
-				.firstOrNull()
+			client.users(cmd.realmId).search(null, null, null, cmd.email, null, null)
+				.firstOrNull { it.email == cmd.email }
 				?.asModel { userId -> userFinderService.getRoles(userId, cmd.realmId, cmd.auth) }
 				.let(::UserGetByEmailResult)
 		} catch (e: Exception) {
