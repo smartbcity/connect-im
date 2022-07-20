@@ -18,15 +18,14 @@ class UserGetByEmailFunctionImpl {
 	private val logger by Logger()
 
 	@Bean
-	fun userGetByEmailQueryFunction(userFinderService: UserFinderService)
-			: UserGetByEmailFunction = keycloakF2Function { cmd, realmClient ->
+	fun userGetByEmailQueryFunction(
+		userFinderService: UserFinderService
+	): UserGetByEmailFunction = keycloakF2Function { cmd, client ->
 		try {
-			realmClient.users(cmd.realmId).list().first { user ->
-				user.email == cmd.email
-			}.asModel { userId -> userFinderService.getRoles(userId, cmd.realmId, cmd.auth) }
-				.asResult()
-		} catch (e: NoSuchElementException) {
-			UserGetByEmailResult(null)
+			client.users(cmd.realmId).search(null, null, null, cmd.email, 0, 1)
+				.firstOrNull()
+				?.asModel { userId -> userFinderService.getRoles(userId, cmd.realmId, cmd.auth) }
+				.let(::UserGetByEmailResult)
 		} catch (e: Exception) {
 			val msg = "Error fetching User with email[${cmd.email}]"
 			logger.error(msg, e)
@@ -37,7 +36,7 @@ class UserGetByEmailFunctionImpl {
 		}
 	}
 
-	private fun UserModel.asResult(): UserGetByEmailResult {
+	private fun UserModel?.asResult(): UserGetByEmailResult {
 		return UserGetByEmailResult(this)
 	}
 }
