@@ -15,6 +15,7 @@ class GroupPageQuery(
 	val search: String? = null,
 	val role: String? = null,
 	val attributes: Map<String, String> = emptyMap(),
+	val withDisabled: Boolean,
 	val page: PagePagination,
 	val realmId: RealmId,
 	override val auth: AuthRealm,

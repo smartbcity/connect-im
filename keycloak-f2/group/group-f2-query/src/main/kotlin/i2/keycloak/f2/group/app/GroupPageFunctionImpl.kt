@@ -7,6 +7,7 @@ import i2.keycloak.f2.commons.domain.error.asI2Exception
 import i2.keycloak.f2.group.app.model.asModel
 import i2.keycloak.f2.group.domain.features.query.GroupPageFunction
 import i2.keycloak.f2.group.domain.features.query.GroupPageResult
+import i2.keycloak.f2.group.domain.model.GroupModel
 import i2.keycloak.realm.client.config.AuthRealmClient
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -30,6 +31,10 @@ class GroupPageFunctionImpl {
 				.groups("", 0, Int.MAX_VALUE, false)
 				.asSequence()
 				.map { group -> group.asModel { roles[it].orEmpty() } }
+
+			if (!cmd.withDisabled) {
+				groups = groups.filter(GroupModel::enabled)
+			}
 
 			cmd.search?.let { searchFilter ->
 				groups = groups.filter { group -> group.name.contains(searchFilter, true) }
