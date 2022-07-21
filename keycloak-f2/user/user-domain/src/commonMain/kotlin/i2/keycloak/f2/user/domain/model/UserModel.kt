@@ -14,5 +14,6 @@ class UserModel(
 	val lastName: String?,
 	val roles: UserRoles,
 	val attributes: Map<String, String>,
+	val enabled: Boolean,
 	val creationDate: Long
 )

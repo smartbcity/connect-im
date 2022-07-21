@@ -5,7 +5,7 @@ import i2.keycloak.f2.user.domain.model.UserModel
 import i2.keycloak.f2.user.domain.model.UserRoles
 import org.keycloak.representations.idm.UserRepresentation
 
-suspend fun List<UserRepresentation>.asModels(getRealmRoles: suspend (UserId) -> UserRoles): List<UserModel>
+suspend fun Iterable<UserRepresentation>.asModels(getRealmRoles: suspend (UserId) -> UserRoles): List<UserModel>
 		= map { user -> user.asModel(getRealmRoles) }
 
 suspend fun UserRepresentation.asModel(getRealmRoles: suspend (UserId) -> UserRoles): UserModel {
@@ -16,6 +16,7 @@ suspend fun UserRepresentation.asModel(getRealmRoles: suspend (UserId) -> UserRo
 		lastName = lastName,
 		roles = getRealmRoles(id),
 		attributes = attributes.orEmpty().mapValues { (_, value) -> value.first() },
+		enabled = isEnabled,
 		creationDate = createdTimestamp
 	)
 }
