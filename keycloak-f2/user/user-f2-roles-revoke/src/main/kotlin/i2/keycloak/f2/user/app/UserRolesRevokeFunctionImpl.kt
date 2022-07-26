@@ -22,6 +22,10 @@ class UserRolesRevokeFunctionImpl {
 			cmd.roles.filter { it != defaultRole }
 		}
 
+		if (rolesToRevoke.isEmpty()) {
+			return@keycloakF2Function UserRolesRevokedEvent(cmd.id)
+		}
+
 		client.removeUserRole(cmd.id, rolesToRevoke, cmd.realmId)
 		UserRolesRevokedEvent(cmd.id)
 	}

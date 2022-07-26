@@ -17,6 +17,10 @@ class UserRolesGrantFunctionImpl {
 
 	@Bean
 	fun userRolesGrantFunction(): UserRolesGrantFunction = keycloakF2Function { cmd, client ->
+		if (cmd.roles.isEmpty()) {
+			return@keycloakF2Function UserRolesGrantedEvent(cmd.id)
+		}
+
 		if (cmd.clientId == null) {
 			client.addUserRealmRole(cmd.realmId, cmd.id, cmd.roles)
 		} else {
