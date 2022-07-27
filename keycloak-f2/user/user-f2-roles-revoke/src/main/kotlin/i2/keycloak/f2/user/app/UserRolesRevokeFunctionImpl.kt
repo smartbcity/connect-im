@@ -42,6 +42,6 @@ class UserRolesRevokeFunctionImpl {
 	}
 
 	private fun AuthRealmClient.getUserRealmRolesResource(userId: String, realmId: RealmId): RoleScopeResource {
-		return getUserResource(userId, realmId).roles().realmLevel()
+		return getUserResource(realmId, userId).roles().realmLevel()
 	}
 }
