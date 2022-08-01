@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Configuration
 
 @Configuration
 class GroupUpdateFunctionImpl {
-
 	@Bean
 	fun groupUpdateFunction(): GroupUpdateFunction = keycloakF2Function { cmd, client ->
 		try {
@@ -41,9 +40,9 @@ class GroupUpdateFunctionImpl {
 	}
 
 	private fun GroupResource.setRoles(client: AuthRealmClient, roles: List<String>) {
-		val roles = roles.map { role ->
+		val roleRepresentations = roles.map { role ->
 			client.realm.roles()[role].toRepresentation()
 		}
-		this.roles().realmLevel().add(roles)
+		this.roles().realmLevel().add(roleRepresentations)
 	}
 }
