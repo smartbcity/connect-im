@@ -1,8 +1,8 @@
 package i2.keycloak.f2.user.domain.features.command
 
-import f2.dsl.cqrs.Command
 import f2.dsl.cqrs.Event
 import f2.dsl.fnc.F2Function
+import i2.keycloak.f2.commons.domain.KeycloakF2Command
 import i2.keycloak.f2.user.domain.model.UserId
 import i2.keycloak.master.domain.AuthRealm
 import i2.keycloak.master.domain.RealmId
@@ -16,11 +16,11 @@ typealias UserDeleteFunction = F2Function<UserDeleteCommand, UserDeletedEvent>
 class UserDeleteCommand(
     val id: UserId,
     val realmId: RealmId,
-    val auth: AuthRealm,
-) : Command
+    override val auth: AuthRealm,
+): KeycloakF2Command
 
 @JsExport
 @JsName("UserDeletedEvent")
 class UserDeletedEvent(
 	val id: UserId
-) : Event
+): Event
