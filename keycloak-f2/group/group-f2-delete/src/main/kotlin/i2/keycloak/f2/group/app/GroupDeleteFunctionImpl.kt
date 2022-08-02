@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration
 class GroupDeleteFunctionImpl {
 
 	@Bean
-	fun groupDisableFunction(): GroupDeleteFunction = keycloakF2Function { cmd, client ->
+	fun groupDeleteFunction(): GroupDeleteFunction = keycloakF2Function { cmd, client ->
 		try {
 			client.getGroupResource(cmd.realmId, cmd.id).remove()
 			GroupDeletedEvent(cmd.id)
