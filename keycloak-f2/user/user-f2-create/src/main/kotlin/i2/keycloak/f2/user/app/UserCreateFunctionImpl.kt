@@ -49,8 +49,8 @@ class UserCreateFunctionImpl {
 		userRep.email = user.email
 		userRep.firstName = user.firstname
 		userRep.lastName = user.lastname
-		userRep.isEnabled = true
-		userRep.isEmailVerified = true
+		userRep.isEnabled = user.isEnable
+		userRep.isEmailVerified = user.isEmailVerified
 		user.attributes.forEach {
 			userRep.singleAttribute(it.key, it.value)
 		}
