@@ -27,14 +27,16 @@ class UserUpdateEmailFunctionImpl(
 			}
 			userResource.update(userRepresentation)
 
-			UserEmailSendActionsCommand(
-				userId = cmd.userId,
-				clientId = null,
-				redirectUri = null,
-				actions = listOf("VERIFY_EMAIL"),
-				realmId = cmd.realmId,
-				auth = cmd.auth
-			).invokeWith(userEmailSendActionsFunction)
+			if (cmd.sendVerificationEmail) {
+				UserEmailSendActionsCommand(
+					userId = cmd.userId,
+					clientId = cmd.clientId,
+					redirectUri = cmd.redirectUri,
+					actions = listOf("VERIFY_EMAIL"),
+					realmId = cmd.realmId,
+					auth = cmd.auth
+				).invokeWith(userEmailSendActionsFunction)
+			}
 
 			UserUpdatedEmailEvent(cmd.userId)
 		} catch (e: Exception) {

@@ -16,6 +16,9 @@ typealias UserUpdateEmailFunction = F2Function<UserUpdateEmailCommand, UserUpdat
 class UserUpdateEmailCommand(
     val userId: UserId,
     val email: String,
+    val sendVerificationEmail: Boolean,
+    val clientId: String? = null,
+    val redirectUri: String? = null,
     val realmId: RealmId,
     override val auth: AuthRealm,
 ): KeycloakF2Command
