@@ -22,6 +22,5 @@ class GroupDisableCommand(
 @JsExport
 @JsName("GroupDisabledEvent")
 class GroupDisabledEvent(
-	val id: GroupId,
-    val userIds: List<String>
+	val id: GroupId
 ): Event
