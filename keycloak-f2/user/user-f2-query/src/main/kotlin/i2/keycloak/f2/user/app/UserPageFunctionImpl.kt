@@ -54,6 +54,8 @@ class UserPageFunctionImpl {
 			users = users.filter { user -> value == user.attributes[key] }
 		}
 
+		users = users.sortedByDescending(UserModel::creationDate)
+
 		val count = users.count()
 		val usersPage = if (query.page.size != null && query.page.page != null) {
 			users.chunked(query.page.size!!).elementAtOrNull(query.page.page!!).orEmpty()

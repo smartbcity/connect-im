@@ -48,6 +48,8 @@ class GroupPageFunctionImpl {
 				groups = groups.filter { group -> value == group.attributes[key] }
 			}
 
+			groups = groups.sortedByDescending { it.attributes["creationDate"]?.toLong() ?: 0 }
+
 			val count = groups.count()
 
 			val groupsPage = if (cmd.page.size != null && cmd.page.page != null) {
