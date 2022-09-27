@@ -2,10 +2,11 @@ FROM quay.io/keycloak/keycloak:18.0.0 as builder
 ENV KC_DB=postgres
 ENV KC_HTTP_RELATIVE_PATH=/auth
 ENV KC_LOG_LEVEL=INFO
+COPY i2-keycloak/keycloak-plugin/build/libs/keycloak-plugin-with-dependencies.jar /opt/keycloak/providers/i2-event-http.jar
 RUN /opt/keycloak/bin/kc.sh build
 
 FROM quay.io/keycloak/keycloak:18.0.0
-COPY --from=builder /opt/keycloak/lib/quarkus/ /opt/keycloak/lib/quarkus/
+COPY --from=builder /opt/keycloak/ /opt/keycloak/
 WORKDIR /opt/keycloak
 
 ENV KC_PROXY=none
@@ -15,4 +16,4 @@ ENV KC_HOSTNAME=localhost
 
 COPY i2-keycloak/config/themes/i2 /opt/keycloak/themes/i2/
 
-ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "--spi-login-protocol-openid-connect-legacy-logout-redirect-uri=true","start"]
+ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "--spi-login-protocol-openid-connect-legacy-logout-redirect-uri=true", "start"]
