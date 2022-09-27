@@ -10,6 +10,9 @@ dependencies {
 tasks {
     shadowJar {
         archiveFileName.set("keycloak-plugin-with-dependencies.jar")
+        dependencies {
+            exclude(dependency("org.keycloak:.*:.*"))
+        }
     }
 }
 
