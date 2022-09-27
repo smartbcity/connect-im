@@ -4,4 +4,5 @@ plugins {
 }
 
 dependencies {
+    api("org.keycloak:keycloak-server-spi-private:${Versions.keycloak}")
 }
