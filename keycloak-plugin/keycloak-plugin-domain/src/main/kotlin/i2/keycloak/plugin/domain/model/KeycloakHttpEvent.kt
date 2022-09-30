@@ -1,5 +1,6 @@
 package i2.keycloak.plugin.domain.model
 
+import org.keycloak.events.Details
 import org.keycloak.events.EventType
 
 data class KeycloakHttpEvent(
@@ -12,4 +13,7 @@ data class KeycloakHttpEvent(
     val sessionId: String?,
     val error: String?,
     val details: Map<String, String>?
-)
+) {
+    fun isVerifyEmail() = type == EventType.VERIFY_EMAIL
+            || type == EventType.CUSTOM_REQUIRED_ACTION && details?.get(Details.CUSTOM_REQUIRED_ACTION) == "VERIFY_EMAIL"
+}
