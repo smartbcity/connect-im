@@ -6,23 +6,40 @@ import org.keycloak.events.Event
 import org.keycloak.events.EventListenerProvider
 import org.keycloak.events.admin.AdminEvent
 import org.keycloak.models.KeycloakSession
+import java.util.stream.Collectors
 import kotlin.streams.toList
 
 class HttpEventListenerProvider(
     private val session: KeycloakSession
 ): EventListenerProvider {
-    override fun onEvent(event: Event): Unit = runBlocking {
+    override fun onEvent(event: Event): Unit = timed {
+        println(event.toKeycloakHttpEvent())
+
         val realm = session.realms().getRealm(event.realmId)
-            ?: return@runBlocking
+            ?: return@timed
+
+        println("Realm: ${realm.name}")
+
+        if (realm.isEventsEnabled && event.type.name !in realm.enabledEventTypesStream.collect(Collectors.toSet())) {
+            println("Event type [${event.type}] disabled in realm. Not sending.")
+        }
 
         val client = session.clients().getClientByClientId(realm, event.clientId)
-            ?: return@runBlocking
+            ?: return@timed
+
+        println("Client: ${client.clientId}")
 
         client.protocolMappersStream.toList()
             .firstOrNull { it.name == "event-http-webhook" }
             ?.config
             ?.get("claim.value")
             ?.let { url -> WebhookClient.send(url, event.toKeycloakHttpEvent()) }
+    }
+
+    private fun timed(block: suspend () -> Unit) = runBlocking {
+        val start = System.currentTimeMillis()
+        block()
+        println("${System.currentTimeMillis() - start} ms")
     }
 
     override fun onEvent(event: AdminEvent, includeRepresentation: Boolean) {}
