@@ -22,6 +22,7 @@ class HttpEventListenerProvider(
 
         if (realm.isEventsEnabled && event.type.name !in realm.enabledEventTypesStream.collect(Collectors.toSet())) {
             println("Event type [${event.type}] disabled in realm. Not sending.")
+            return@timed
         }
 
         val client = session.clients().getClientByClientId(realm, event.clientId)
