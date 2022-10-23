@@ -4,7 +4,7 @@ plugins {
 }
 
 dependencies {
-    api(project(":i2-keycloak:keycloak-f2:commons:commons-domain"))
+    api(project(":i2-keycloak:keycloak-f2:commons:i2-commons-domain"))
 
     api("org.keycloak:keycloak-admin-client:${Versions.keycloak}")
 }
