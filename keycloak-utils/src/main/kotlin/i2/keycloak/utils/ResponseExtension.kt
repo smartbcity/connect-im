@@ -14,7 +14,8 @@ fun Response.isFailure(): Boolean {
 }
 
 fun Response.onCreationFailure(entityName: String = "entity") {
-	val msg = "Error creating $entityName (code: ${status}) }"
+	val error = this.readEntity(String::class.java)
+	val msg = "Error creating $entityName (code: ${status}) }. Cause: ${error}"
 	throw I2ApiError(
 		description = msg,
 		payload = emptyMap()

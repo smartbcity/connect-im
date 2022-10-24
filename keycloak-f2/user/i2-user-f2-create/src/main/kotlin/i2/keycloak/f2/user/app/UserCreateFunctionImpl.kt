@@ -68,11 +68,4 @@ class UserCreateFunctionImpl {
 		return credential
 	}
 
-//	private fun onboarding(client: AuthRealmClient, cmd: UserCreateCommand) {
-//		executeEmailActions(client, cmd, listOf("UPDATE_PASSWORD", "ONBOARDING"))
-//	}
-
-//	private fun executeEmailActions(client: AuthRealmClient, cmd: UserCreateCommand, actions: List<String>) {
-//		client.getUserResource(cmd.id).executeActionsEmail(cmd.auth.clientId, cmd.auth.redirectUrl, actions)
-//	}
 }
