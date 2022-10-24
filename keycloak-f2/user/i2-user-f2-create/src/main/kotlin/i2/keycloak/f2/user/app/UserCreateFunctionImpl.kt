@@ -55,16 +55,16 @@ class UserCreateFunctionImpl {
 			userRep.singleAttribute(it.key, it.value)
 		}
 		user.password?.let { password ->
-			userRep.credentials = listOf(password.toCredentialRepresentation(CredentialRepresentation.PASSWORD))
+			userRep.credentials = listOf(password.toCredentialRepresentation(CredentialRepresentation.PASSWORD, user.passwordIsTemporary))
 		}
 		return userRep
 	}
 
-	private fun String.toCredentialRepresentation(credentialType: String): CredentialRepresentation {
+	private fun String.toCredentialRepresentation(credentialType: String, isTemporary: Boolean): CredentialRepresentation {
 		val credential = CredentialRepresentation()
 		credential.type = credentialType
 		credential.value = this
-		credential.isTemporary = false
+		credential.isTemporary = isTemporary
 		return credential
 	}
 
