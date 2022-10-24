@@ -24,7 +24,7 @@ class UserCreateCommand(
     val attributes: Map<String, String>,
     val auth: AuthRealm,
     val password: String? = null,
-    val passwordIsTemporary: Boolean = false
+    val isPasswordTemporary: Boolean = false
 ) : Command
 
 @JsExport

@@ -55,7 +55,7 @@ class UserCreateFunctionImpl {
 			userRep.singleAttribute(it.key, it.value)
 		}
 		user.password?.let { password ->
-			userRep.credentials = listOf(password.toCredentialRepresentation(CredentialRepresentation.PASSWORD, user.passwordIsTemporary))
+			userRep.credentials = listOf(password.toCredentialRepresentation(CredentialRepresentation.PASSWORD, user.isPasswordTemporary))
 		}
 		return userRep
 	}
