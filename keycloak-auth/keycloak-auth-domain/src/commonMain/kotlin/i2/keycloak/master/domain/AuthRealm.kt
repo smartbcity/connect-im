@@ -6,7 +6,7 @@ sealed class AuthRealm(
 	open val serverUrl: String,
 	open val realmId: RealmId,
 	open val clientId: String,
-	open val redirectUrl: String,
+	open val redirectUrl: String?,
 )
 
 class AuthRealmPassword(
@@ -21,7 +21,6 @@ class AuthRealmPassword(
 class AuthRealmClientSecret(
 	override val serverUrl: String,
 	override val realmId: RealmId,
-	override val redirectUrl: String,
 	override val clientId: String,
 	val clientSecret: String,
-): AuthRealm(serverUrl, realmId, clientId, redirectUrl)
+): AuthRealm(serverUrl, realmId, clientId, null)
