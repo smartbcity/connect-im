@@ -15,7 +15,6 @@ typealias ClientServiceAccountRolesGrantFunction = F2Function<ClientServiceAccou
 @JsName("ClientServiceAccountRolesGrantCommand")
 class ClientServiceAccountRolesGrantCommand(
     val id: ClientId,
-    val rolesProviderClientId: ClientId,
     val roles: List<String>,
     val auth: AuthRealm,
     val realmId: RealmId = auth.realmId

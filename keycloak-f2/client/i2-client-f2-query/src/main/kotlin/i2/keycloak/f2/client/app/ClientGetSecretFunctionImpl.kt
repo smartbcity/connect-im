@@ -7,14 +7,14 @@ import i2.keycloak.f2.commons.domain.error.I2ApiError
 import i2.keycloak.f2.commons.domain.error.asI2Exception
 import i2.keycloak.realm.client.config.AuthRealmClientBuilder
 import org.keycloak.representations.idm.CredentialRepresentation
+import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import s2.spring.utils.logger.Logger
 
 @Configuration
 class ClientGetSecretFunctionImpl {
 
-    private val logger by Logger()
+    private val logger = LoggerFactory.getLogger(ClientGetSecretFunctionImpl::class.java)
 
     @Bean
     fun clientGetSecretFunction(): ClientGetSecretFunction = f2Function { cmd ->
