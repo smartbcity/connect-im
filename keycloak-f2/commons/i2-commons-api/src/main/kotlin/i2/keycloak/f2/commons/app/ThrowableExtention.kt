@@ -5,7 +5,6 @@ import i2.keycloak.f2.commons.domain.error.I2Exception
 import i2.keycloak.f2.commons.domain.error.asI2Exception
 import javax.ws.rs.ClientErrorException
 
-
 fun Throwable.asI2Exception(msg: String): I2Exception {
     val description = if(this is ClientErrorException) {
          val responseError = response.readEntity(String::class.java)
