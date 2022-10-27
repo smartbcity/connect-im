@@ -6,13 +6,13 @@ import org.keycloak.events.Event
 import org.keycloak.events.EventListenerProvider
 import org.keycloak.events.admin.AdminEvent
 import org.keycloak.models.KeycloakSession
-import java.util.stream.Collectors
 import kotlin.streams.toList
 
 class HttpEventListenerProvider(
     private val session: KeycloakSession
 ): EventListenerProvider {
     override fun onEvent(event: Event): Unit = timed {
+        println("-----------------")
         println(event.toKeycloakHttpEvent())
 
         val realm = session.realms().getRealm(event.realmId)
@@ -20,7 +20,7 @@ class HttpEventListenerProvider(
 
         println("Realm: ${realm.name}")
 
-        if (realm.isEventsEnabled && event.type.name !in realm.enabledEventTypesStream.collect(Collectors.toSet())) {
+        if (realm.isEventsEnabled && realm.enabledEventTypesStream.noneMatch { it == event.type.name }) {
             println("Event type [${event.type}] disabled in realm. Not sending.")
             return@timed
         }

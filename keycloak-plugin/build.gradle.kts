@@ -12,6 +12,7 @@ tasks {
         archiveFileName.set("keycloak-plugin-with-dependencies.jar")
         dependencies {
             exclude(dependency("org.keycloak:.*:.*"))
+            exclude(project(":i2-keycloak:keycloak-plugin:keycloak-plugin-client"))
         }
     }
 }
