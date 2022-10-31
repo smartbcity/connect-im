@@ -7,9 +7,12 @@ import javax.ws.rs.ClientErrorException
 
 fun Throwable.asI2Exception(msg: String): I2Exception {
     val description = if(this is ClientErrorException) {
-         val responseError = response.readEntity(String::class.java)
+        val responseError = response.readEntity(String::class.java)
         "$msg. Details: $responseError"
-    } else msg
+    } else if(this.cause is ClientErrorException) {
+        val responseError = (this.cause as ClientErrorException).response.readEntity(String::class.java)
+        "$msg. Details: $responseError"
+    } else  msg
 
     return I2ApiError(
         description = description,

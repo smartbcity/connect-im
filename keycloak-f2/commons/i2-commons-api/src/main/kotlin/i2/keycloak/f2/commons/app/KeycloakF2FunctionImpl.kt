@@ -10,6 +10,10 @@ fun <C: KeycloakF2Command, R: Any> keycloakF2Function(
     fcn: suspend (C, AuthRealmClient) -> R
 ): F2Function<C, R> =
 	f2Function { cmd ->
-		val client = AuthRealmClientBuilder().build(cmd.auth)
-		fcn(cmd, client)
+		try {
+			val client = AuthRealmClientBuilder().build(cmd.auth)
+			fcn(cmd, client)
+		} catch (e: Exception) {
+			throw e.asI2Exception(e.message ?: "Internal Server Errro")
+		}
 	}
