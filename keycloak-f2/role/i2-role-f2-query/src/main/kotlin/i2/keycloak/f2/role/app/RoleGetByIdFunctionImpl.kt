@@ -7,16 +7,17 @@ import i2.keycloak.f2.role.domain.features.query.RoleGetByIdQueryFunction
 import i2.keycloak.f2.role.domain.features.query.RoleGetByIdResult
 import i2.keycloak.realm.client.config.AuthRealmClientBuilder
 import javax.ws.rs.NotFoundException
+import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import s2.spring.utils.logger.Logger
+
 
 @Configuration
 class RoleGetByIdFunctionImpl {
-    private val logger by Logger()
+    private val logger = LoggerFactory.getLogger(RoleGetByIdFunctionImpl::class.java)
 
     @Bean
-    fun roleGetById(): RoleGetByIdQueryFunction = f2Function { cmd ->
+    fun i2RoleGetById(): RoleGetByIdQueryFunction = f2Function { cmd ->
         val realmClient = AuthRealmClientBuilder().build(cmd.auth)
         try {
             realmClient.getRoleResource(cmd.id)

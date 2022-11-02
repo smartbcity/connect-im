@@ -1,31 +1,24 @@
 package i2.keycloak.f2.user.app.service
 
-import f2.dsl.fnc.invokeWith
-import i2.keycloak.f2.user.domain.features.query.UserGetRolesFunction
-import i2.keycloak.f2.user.domain.features.query.UserGetRolesQuery
+import i2.keycloak.f2.role.app.service.RolesFinderService
+import i2.keycloak.f2.role.domain.RolesCompositesModel
+import i2.keycloak.f2.role.domain.features.query.RoleCompositeObjType
 import i2.keycloak.f2.user.domain.model.UserId
-import i2.keycloak.f2.user.domain.model.UserRoles
-import i2.keycloak.f2.user.domain.model.defaultRealmRole
-import i2.keycloak.master.domain.AuthRealm
 import i2.keycloak.master.domain.RealmId
+import i2.keycloak.realm.client.config.AuthRealmClient
 import org.springframework.stereotype.Service
 
 @Service
 class UserFinderService(
-    private val userGetRolesQueryFunction: UserGetRolesFunction
+    private val rolesFinderService: RolesFinderService
 ) {
-    suspend fun getRoles(userId: UserId, realmId: RealmId, authRealm: AuthRealm): UserRoles {
-        val query = UserGetRolesQuery(
-            userId = userId,
-            realmId = realmId,
-            auth = authRealm
-        ).invokeWith(userGetRolesQueryFunction)
 
-        val defaultRealmRole = defaultRealmRole(realmId)
+    suspend fun getAllRolesComposition(
+        realmId: RealmId,
+        client: AuthRealmClient
+    ) = rolesFinderService.getAllRolesComposition(realmId, client)
 
-        return UserRoles(
-            assignedRoles = query.roles.assignedRoles.filter { it != defaultRealmRole },
-            effectiveRoles = query.roles.effectiveRoles
-        )
+    suspend fun getRolesComposition(userId: UserId, realmId: RealmId, client: AuthRealmClient): RolesCompositesModel {
+        return rolesFinderService.getRolesComposite(realmId = realmId, objId = userId, objType = RoleCompositeObjType.USER, client)
     }
 }

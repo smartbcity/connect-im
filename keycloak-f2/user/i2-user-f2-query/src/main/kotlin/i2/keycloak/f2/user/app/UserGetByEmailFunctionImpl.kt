@@ -8,26 +8,26 @@ import i2.keycloak.f2.user.app.service.UserFinderService
 import i2.keycloak.f2.user.domain.features.query.UserGetByEmailFunction
 import i2.keycloak.f2.user.domain.features.query.UserGetByEmailResult
 import i2.keycloak.f2.user.domain.model.UserModel
+import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import s2.spring.utils.logger.Logger
 
 @Configuration
 class UserGetByEmailFunctionImpl {
 
-	private val logger by Logger()
+	private val logger = LoggerFactory.getLogger(UserGetByEmailFunctionImpl::class.java)
 
 	@Bean
 	fun userGetByEmailQueryFunction(
 		userFinderService: UserFinderService
-	): UserGetByEmailFunction = keycloakF2Function { cmd, client ->
+	): UserGetByEmailFunction = keycloakF2Function { query, client ->
 		try {
-			client.users(cmd.realmId).search(null, null, null, cmd.email, null, null)
-				.firstOrNull { it.email == cmd.email }
-				?.asModel { userId -> userFinderService.getRoles(userId, cmd.realmId, cmd.auth) }
+			client.users(query.realmId).search(null, null, null, query.email, null, null)
+				.firstOrNull { it.email == query.email }
+				?.asModel { userId -> userFinderService.getRolesComposition(userId, query.realmId, client) }
 				.let(::UserGetByEmailResult)
 		} catch (e: Exception) {
-			val msg = "Error fetching User with email[${cmd.email}]"
+			val msg = "Error fetching User with email[${query.email}]"
 			logger.error(msg, e)
 			throw I2ApiError(
 				description = msg,

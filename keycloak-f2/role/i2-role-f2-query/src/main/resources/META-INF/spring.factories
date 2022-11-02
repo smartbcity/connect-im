@@ -1,2 +1,7 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-i2.keycloak.f2.role.app.RoleGetByNameFunctionImpl
+    i2.keycloak.f2.role.app.RoleGetByIdFunctionImpl,\
+    i2.keycloak.f2.role.app.RoleGetByNameFunctionImpl,\
+    i2.keycloak.f2.role.app.RolePageFunctionImpl,\
+    i2.keycloak.f2.role.app.RolesCompositeGetFunctionImpl,\
+    i2.keycloak.f2.role.app.service.RolesFinderService
+

@@ -8,16 +8,15 @@ import i2.keycloak.f2.group.app.model.asModel
 import i2.keycloak.f2.group.domain.features.query.GroupPageFunction
 import i2.keycloak.f2.group.domain.features.query.GroupPageResult
 import i2.keycloak.f2.group.domain.model.GroupModel
-import i2.keycloak.realm.client.config.AuthRealmClient
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import s2.spring.utils.logger.Logger
 import javax.ws.rs.NotFoundException
+import org.slf4j.LoggerFactory
 
 @Configuration
-class GroupPageFunctionImpl {
+class GroupPageFunctionImpl{
 
-	private val logger by Logger()
+	private val logger = LoggerFactory.getLogger(GroupPageFunctionImpl::class.java)
 
 	@Bean
 	fun groupPageFunction(): GroupPageFunction = keycloakF2Function { cmd, client ->
@@ -41,7 +40,7 @@ class GroupPageFunctionImpl {
 			}
 
 			cmd.role?.let { roleFilter ->
-				groups = groups.filter { group -> roleFilter in group.roles }
+				groups = groups.filter { group -> roleFilter in group.roles.effectiveRoles }
 			}
 
 			cmd.attributes.forEach { (key, value) ->
@@ -74,9 +73,5 @@ class GroupPageFunctionImpl {
 				payload = emptyMap()
 			).asI2Exception()
 		}
-	}
-
-	private fun AuthRealmClient.countGroups(realmId: String): Int {
-		return this.groups(realmId).count()["count"]!!.toInt()
 	}
 }

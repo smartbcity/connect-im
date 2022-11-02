@@ -18,7 +18,7 @@ class RolePageFunctionImpl {
 	}
 
 	@Bean
-	fun rolePageFunction(): RolePageFunction = f2Function { cmd ->
+	fun i2RolePageFunction(): RolePageFunction = f2Function { cmd ->
 		val realmClient = AuthRealmClientBuilder().build(cmd.auth)
 
 		val size = cmd.page.size ?: PAGE_SIZE

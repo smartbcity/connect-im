@@ -6,7 +6,7 @@ plugins {
 
 dependencies {
     api(project(":i2-keycloak:keycloak-f2:group:i2-group-domain"))
-    api(project(":i2-keycloak:keycloak-f2:commons:i2-commons-api"))
+    implementation(project(":i2-keycloak:keycloak-f2:role:i2-role-f2-query"))
+    implementation(project(":i2-keycloak:keycloak-f2:commons:i2-commons-api"))
 
-    implementation("city.smartb.s2:s2-spring-boot-starter-utils-logger:${Versions.s2}")
 }

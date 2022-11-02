@@ -1,8 +1,8 @@
 package i2.keycloak.f2.user.domain.features.query
 
-import f2.dsl.cqrs.Command
 import f2.dsl.cqrs.Event
 import f2.dsl.fnc.F2Function
+import i2.keycloak.f2.commons.domain.KeycloakF2Query
 import i2.keycloak.f2.user.domain.model.UserModel
 import i2.keycloak.master.domain.AuthRealm
 import i2.keycloak.master.domain.RealmId
@@ -15,9 +15,9 @@ typealias UserGetByUsernameFunction = F2Function<UserGetByUsernameQuery, UserGet
 @JsName("UserGetByUsernameQuery")
 class UserGetByUsernameQuery(
     val realmId: RealmId,
-    val auth: AuthRealm,
-    val username: String
-): Command
+    val username: String,
+    override val auth: AuthRealm,
+): KeycloakF2Query
 
 @JsExport
 @JsName("UserGetByUsernameResult")

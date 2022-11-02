@@ -2,13 +2,13 @@ package i2.keycloak.f2.user.app.model
 
 import i2.keycloak.f2.user.domain.model.UserId
 import i2.keycloak.f2.user.domain.model.UserModel
-import i2.keycloak.f2.user.domain.model.UserRoles
+import i2.keycloak.f2.role.domain.RolesCompositesModel
 import org.keycloak.representations.idm.UserRepresentation
 
-suspend fun Iterable<UserRepresentation>.asModels(getRealmRoles: suspend (UserId) -> UserRoles): List<UserModel>
+suspend fun Iterable<UserRepresentation>.asModels(getRealmRoles: suspend (UserId) -> RolesCompositesModel): List<UserModel>
 		= map { user -> user.asModel(getRealmRoles) }
 
-suspend fun UserRepresentation.asModel(getRealmRoles: suspend (UserId) -> UserRoles): UserModel {
+suspend fun UserRepresentation.asModel(getRealmRoles: suspend (UserId) -> RolesCompositesModel): UserModel {
 	return UserModel(
 		id = id,
 		email = email,

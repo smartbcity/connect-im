@@ -29,7 +29,7 @@ class UserPageFunctionImpl {
 		}
 
 		var users = userRepresentations.asModels { userId ->
-			userFinderService.getRoles(userId, query.realmId, query.auth)
+			userFinderService.getRolesComposition(userId, query.realmId, realmClient)
 		}.asSequence()
 
 		if (!query.withDisabled) {
