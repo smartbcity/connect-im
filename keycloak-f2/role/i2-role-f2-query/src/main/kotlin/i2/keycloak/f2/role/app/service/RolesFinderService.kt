@@ -2,6 +2,7 @@ package i2.keycloak.f2.role.app.service
 
 import i2.keycloak.f2.role.domain.RoleCompositesModel
 import i2.keycloak.f2.role.domain.RolesCompositesModel
+import i2.keycloak.f2.role.domain.defaultRealmRole
 import i2.keycloak.f2.role.domain.features.query.RoleCompositeObjType
 import i2.keycloak.master.domain.RealmId
 import i2.keycloak.realm.client.config.AuthRealmClient
@@ -41,15 +42,14 @@ class RolesFinderService{
             RoleCompositeObjType.USER ->  client.getUserResource(realmId, objId).roles().realmLevel()
             RoleCompositeObjType.GROUP ->  client.getGroupResource(realmId, objId).roles().realmLevel()
         }
-        return roleResource.fetAsyncRoles()
+        return roleResource.fetchAsyncRoles(realmId)
     }
 
-
-    private suspend fun RoleScopeResource.fetAsyncRoles(): RolesCompositesModel = withContext(Dispatchers.IO) {
+    private suspend fun RoleScopeResource.fetchAsyncRoles(realmId: RealmId): RolesCompositesModel = withContext(Dispatchers.IO) {
         val assignedRoles = async { rolesListAll() }
         val effectiveRoles = async { rolesListEffective() }
         RolesCompositesModel(
-            assignedRoles = assignedRoles.await().toList(),
+            assignedRoles = assignedRoles.await().toList() - defaultRealmRole(realmId),
             effectiveRoles = effectiveRoles.await().toList()
         )
     }

@@ -1,4 +1,4 @@
-package i2.keycloak.f2.user.domain.model
+package i2.keycloak.f2.role.domain
 
 import i2.keycloak.master.domain.RealmId
 
