@@ -9,14 +9,14 @@ import i2.keycloak.f2.realm.domain.features.query.RealmGetResult
 import i2.keycloak.realm.client.config.AuthRealmClientBuilder
 import javax.ws.rs.NotFoundException
 import org.keycloak.representations.idm.RealmRepresentation
+import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import s2.spring.utils.logger.Logger
 
 @Configuration
 class RealmGetFunctionImpl {
 
-	private val logger by Logger()
+	private val logger = LoggerFactory.getLogger(RealmGetFunctionImpl::class.java)
 
 	@Bean
 	fun realmGetFunction(): RealmGetFunction = f2Function { cmd ->
