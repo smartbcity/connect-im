@@ -20,7 +20,6 @@ class UserUpdateEmailFunctionImpl(
 	fun userUpdateEmailFunction(): UserUpdateEmailFunction = keycloakF2Function { cmd, client ->
 		try {
 			val userResource = client.getUserResource(cmd.realmId, cmd.userId)
-
 			val userRepresentation = userResource.toRepresentation().apply {
 				email = cmd.email
 				isEmailVerified = false

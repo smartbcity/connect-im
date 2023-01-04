@@ -21,7 +21,7 @@ class UserPageFunctionImpl {
 	private lateinit var userFinderService: UserFinderService
 
 	@Bean
-	fun userPageFunctionImpl(): UserPageFunction = keycloakF2Function { query, realmClient ->
+	fun userPageFunction(): UserPageFunction = keycloakF2Function { query, realmClient ->
 		val userRepresentations = if (query.groupId == null) {
 			listUsers(realmClient, query.realmId)
 		} else {

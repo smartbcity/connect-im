@@ -18,7 +18,7 @@ class ClientPageFunctionImpl {
 	}
 
 	@Bean
-	fun clientPageFunctionImpl(): ClientPageFunction = f2Function { cmd ->
+	fun clientPageFunction(): ClientPageFunction = f2Function { cmd ->
 		val realmClient = AuthRealmClientBuilder().build(cmd.auth)
 		val size = cmd.page.size ?: PAGE_SIZE
 		val page = cmd.page.page ?: PAGE_NUMBER
