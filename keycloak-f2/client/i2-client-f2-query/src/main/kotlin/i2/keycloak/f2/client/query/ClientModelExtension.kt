@@ -1,4 +1,4 @@
-package i2.keycloak.f2.client.command
+package i2.keycloak.f2.client.query
 
 import i2.keycloak.f2.client.domain.ClientModel
 import org.keycloak.representations.idm.ClientRepresentation

@@ -1,4 +1,4 @@
-package i2.keycloak.f2.client.command
+package i2.keycloak.f2.client.query
 
 import f2.dsl.fnc.f2Function
 import i2.keycloak.f2.client.domain.ClientModel

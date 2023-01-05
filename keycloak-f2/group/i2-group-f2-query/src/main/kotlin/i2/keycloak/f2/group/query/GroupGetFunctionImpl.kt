@@ -1,9 +1,9 @@
-package i2.keycloak.f2.group.app
+package i2.keycloak.f2.group.query
 
 import i2.keycloak.f2.commons.app.keycloakF2Function
 import i2.keycloak.f2.commons.domain.error.I2ApiError
 import i2.keycloak.f2.commons.domain.error.asI2Exception
-import i2.keycloak.f2.group.app.model.asModel
+import i2.keycloak.f2.group.query.model.asModel
 import i2.keycloak.f2.group.domain.features.query.GroupGetFunction
 import i2.keycloak.f2.group.domain.features.query.GroupGetResult
 import i2.keycloak.f2.role.domain.features.query.RoleCompositeGetFunction

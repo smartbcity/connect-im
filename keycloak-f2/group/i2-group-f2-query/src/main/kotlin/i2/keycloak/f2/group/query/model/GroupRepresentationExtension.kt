@@ -1,4 +1,4 @@
-package i2.keycloak.f2.group.app.model
+package i2.keycloak.f2.group.query.model
 
 import i2.keycloak.f2.group.domain.model.GroupModel
 import i2.keycloak.f2.role.domain.RolesCompositesModel

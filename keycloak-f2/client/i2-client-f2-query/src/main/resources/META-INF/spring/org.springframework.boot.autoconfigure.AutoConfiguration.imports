@@ -1,4 +1,4 @@
-i2.keycloak.f2.client.command.ClientGetFunctionImpl
-i2.keycloak.f2.client.command.ClientGetByClientIdentifierFunctionImpl
-i2.keycloak.f2.client.command.ClientPageFunctionImpl
-i2.keycloak.f2.client.command.ClientGetSecretFunctionImpl
+i2.keycloak.f2.client.query.ClientGetFunctionImpl
+i2.keycloak.f2.client.query.ClientGetByClientIdentifierFunctionImpl
+i2.keycloak.f2.client.query.ClientPageFunctionImpl
+i2.keycloak.f2.client.query.ClientGetSecretFunctionImpl

@@ -1,3 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-i2.keycloak.f2.group.app.GroupPageFunctionImpl,\
-i2.keycloak.f2.group.app.GroupGetFunctionImpl
