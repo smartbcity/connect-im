@@ -17,11 +17,8 @@ import org.springframework.context.annotation.Configuration
 @Configuration
 class UserPageFunctionImpl {
 
-	@Autowired
-	private lateinit var userFinderService: UserFinderService
-
 	@Bean
-	fun userPageFunction(): UserPageFunction = keycloakF2Function { query, realmClient ->
+	fun userPageFunction(userFinderService: UserFinderService): UserPageFunction = keycloakF2Function { query, realmClient ->
 		val userRepresentations = if (query.groupId == null) {
 			listUsers(realmClient, query.realmId)
 		} else {

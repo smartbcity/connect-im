@@ -12,6 +12,7 @@ import org.keycloak.admin.client.resource.RoleResource
 import org.keycloak.admin.client.resource.RolesResource
 import org.keycloak.admin.client.resource.UserResource
 import org.keycloak.admin.client.resource.UsersResource
+import org.keycloak.representations.idm.ClientRepresentation
 
 class AuthRealmClient(
 	val keycloak: Keycloak,
@@ -31,6 +32,9 @@ class AuthRealmClient(
 
 	fun getClientResource(realmId: RealmId, id: String): ClientResource {
 		return clients(realmId).get(id)!!
+	}
+	fun getClientByClientId(realmId: RealmId, id: String): ClientRepresentation? {
+		return clients(realmId).findByClientId(id)?.firstOrNull()
 	}
 
 	/* User */
