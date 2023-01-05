@@ -1,4 +1,4 @@
-package i2.keycloak.f2.user.app.model
+package i2.keycloak.f2.user.query.model
 
 import i2.keycloak.f2.user.domain.model.UserId
 import i2.keycloak.f2.user.domain.model.UserModel

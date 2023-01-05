@@ -1,10 +1,10 @@
-package i2.keycloak.f2.user.app
+package i2.keycloak.f2.user.query
 
 import i2.keycloak.f2.commons.app.keycloakF2Function
 import i2.keycloak.f2.commons.domain.error.I2ApiError
 import i2.keycloak.f2.commons.domain.error.asI2Exception
-import i2.keycloak.f2.user.app.model.asModel
-import i2.keycloak.f2.user.app.service.UserFinderService
+import i2.keycloak.f2.user.query.model.asModel
+import i2.keycloak.f2.user.query.service.UserFinderService
 import i2.keycloak.f2.user.domain.features.query.UserGetByEmailFunction
 import i2.keycloak.f2.user.domain.features.query.UserGetByEmailResult
 import i2.keycloak.f2.user.domain.model.UserModel

@@ -1,4 +1,4 @@
-package i2.keycloak.f2.user.app
+package i2.keycloak.f2.user.query
 
 import i2.keycloak.f2.commons.app.keycloakF2Function
 import i2.keycloak.f2.user.domain.features.query.UserGetGroupsFunction

@@ -1,4 +1,4 @@
-package i2.keycloak.f2.user.app
+package i2.keycloak.f2.user.query
 
 import f2.dsl.fnc.f2Function
 import f2.dsl.fnc.invokeWith

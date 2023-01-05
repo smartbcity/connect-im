@@ -1,16 +1,15 @@
-package i2.keycloak.f2.user.app
+package i2.keycloak.f2.user.query
 
 import f2.dsl.cqrs.page.Page
 import i2.keycloak.f2.commons.app.keycloakF2Function
 import i2.keycloak.f2.group.domain.model.GroupId
-import i2.keycloak.f2.user.app.model.asModels
-import i2.keycloak.f2.user.app.service.UserFinderService
+import i2.keycloak.f2.user.query.model.asModels
+import i2.keycloak.f2.user.query.service.UserFinderService
 import i2.keycloak.f2.user.domain.features.query.UserPageFunction
 import i2.keycloak.f2.user.domain.features.query.UserPageResult
 import i2.keycloak.f2.user.domain.model.UserModel
 import i2.keycloak.realm.client.config.AuthRealmClient
 import org.keycloak.representations.idm.UserRepresentation
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 

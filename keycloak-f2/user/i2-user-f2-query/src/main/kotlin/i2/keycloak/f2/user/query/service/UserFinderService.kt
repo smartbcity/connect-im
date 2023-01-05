@@ -1,4 +1,4 @@
-package i2.keycloak.f2.user.app.service
+package i2.keycloak.f2.user.query.service
 
 import i2.keycloak.f2.role.app.service.RolesFinderService
 import i2.keycloak.f2.role.domain.RolesCompositesModel
