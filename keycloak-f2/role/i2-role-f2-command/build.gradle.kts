@@ -6,8 +6,6 @@ plugins {
 
 dependencies {
     api(project(":i2-keycloak:keycloak-f2:role:i2-role-domain"))
-    api(project(":i2-keycloak:keycloak-f2:commons:i2-commons-api"))
-
-    testImplementation(project(":i2-test:test-bdd"))
+    implementation(project(":i2-keycloak:keycloak-f2:commons:i2-commons-api"))
 
 }
