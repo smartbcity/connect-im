@@ -6,5 +6,5 @@ plugins {
 
 dependencies {
     api(project(":i2-keycloak:keycloak-f2:realm:i2-realm-domain"))
-    implementation(project(":i2-keycloak:keycloak-f2:commons:i2-commons-api"))
+    api(project(":i2-keycloak:keycloak-f2:commons:i2-commons-api"))
 }
