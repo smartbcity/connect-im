@@ -15,6 +15,6 @@ fun <C: KeycloakF2Message, R: Any> keycloakF2Function(
 			val client = AuthRealmClientBuilder().build(cmd.auth)
 			fcn(cmd, client)
 		} catch (e: Exception) {
-			throw e.asI2Exception(e.message ?: "Internal Server Errro")
+			throw e.asI2Exception(e.message ?: "Internal Server Error")
 		}
 	}
