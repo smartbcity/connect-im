@@ -22,5 +22,6 @@ class AuthRealmClientSecret(
 	override val serverUrl: String,
 	override val realmId: RealmId,
 	override val clientId: String,
+	override val redirectUrl: String?,
 	val clientSecret: String,
-): AuthRealm(serverUrl, realmId, clientId, null)
+): AuthRealm(serverUrl, realmId, clientId, redirectUrl)

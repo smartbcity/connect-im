@@ -26,7 +26,11 @@ class UserEmailSendActionsFunctionImpl {
             UserEmailSentActionsEvent(cmd.userId)
         } catch (e: Exception) {
             throw I2ApiError(
-                description = "Realm[${cmd.realmId}] User[${cmd.userId}] Error sending email actions ${cmd.actions}",
+                description = "Realm[${cmd.realmId}] " +
+                        "User[${cmd.userId}] " +
+                        "ClientId[${cmd.clientId}] " +
+                        "RedirectUri[${cmd.redirectUri}] " +
+                        "Error sending email actions ${cmd.actions}",
                 payload = emptyMap()
             ).asI2Exception(e)
         }
