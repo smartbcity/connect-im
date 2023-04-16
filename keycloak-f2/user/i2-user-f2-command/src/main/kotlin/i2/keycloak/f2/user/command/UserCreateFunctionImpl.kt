@@ -54,6 +54,7 @@ class UserCreateFunctionImpl {
 		user.attributes.forEach {
 			userRep.singleAttribute(it.key, it.value)
 		}
+		userRep.singleAttribute("realmId", user.realmId)
 		user.password?.let { password ->
 			userRep.credentials = listOf(password.toCredentialRepresentation(CredentialRepresentation.PASSWORD, user.isPasswordTemporary))
 		}
