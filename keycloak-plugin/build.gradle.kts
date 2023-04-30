@@ -1,5 +1,7 @@
+import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
+
 plugins {
-    id("city.smartb.fixers.gradle.kotlin.jvm")
+    kotlin("jvm")
     id("com.github.johnrengelman.shadow") version PluginVersions.shadowJar
 }
 
@@ -19,6 +21,9 @@ tasks {
 
 subprojects {
     plugins.withType(JavaPlugin::class.java).whenPluginAdded {
+        the<KotlinJvmProjectExtension>().apply {
+            jvmToolchain(11)
+        }
         dependencies {
             val compileOnly by configurations
             compileOnly("org.keycloak:keycloak-core:${Versions.keycloak}")
