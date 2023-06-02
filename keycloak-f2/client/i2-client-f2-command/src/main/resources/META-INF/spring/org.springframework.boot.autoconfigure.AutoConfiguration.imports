@@ -1,4 +1,5 @@
 i2.keycloak.f2.client.command.ClientCreateFunctionImpl
+i2.keycloak.f2.client.command.ClientDeleteFunctionImpl
 i2.keycloak.f2.client.command.ClientGenerateSecretFunctionImpl
 i2.keycloak.f2.client.command.ClientRealmManagementRolesGrantFunctionImpl
 i2.keycloak.f2.client.command.ClientServiceAccountRolesGrantFunctionImpl

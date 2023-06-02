@@ -26,8 +26,7 @@ class ClientGetServiceAccountFunctionImpl {
         try {
             val realmClient = AuthRealmClientBuilder().build(query.auth)
 
-            val targetClientKeycloakId = realmClient.clients(query.realmId).findByClientId(query.id).first().id
-            realmClient.getClientResource(query.realmId, targetClientKeycloakId)
+            realmClient.getClientResource(query.realmId, query.id)
                 .serviceAccountUser
                 .asModel { userId -> userFinderService.getRolesComposition(userId, query.realmId, realmClient) }
                 .let(::ClientGetServiceAccountResult)
