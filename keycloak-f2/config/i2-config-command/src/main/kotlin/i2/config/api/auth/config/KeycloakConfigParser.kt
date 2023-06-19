@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory
 
 const val FILE = "file:"
 
-class KeycloakConfigParser() {
+class KeycloakConfigParser {
     private val logger = LoggerFactory.getLogger(KeycloakConfigParser::class.java)
 
     fun getConfiguration(configPath: String): KeycloakConfigProperties {
