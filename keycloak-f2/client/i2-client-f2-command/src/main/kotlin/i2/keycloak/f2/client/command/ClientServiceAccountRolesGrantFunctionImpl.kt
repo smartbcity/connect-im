@@ -16,9 +16,7 @@ class ClientServiceAccountRolesGrantFunctionImpl {
         try {
             val realmClient = AuthRealmClientBuilder().build(cmd.auth)
 
-            val targetClientKeycloakId = realmClient.clients(cmd.realmId).findByClientId(cmd.id).first().id
-            val targetClientResource = realmClient.getClientResource(cmd.realmId, targetClientKeycloakId)
-
+            val targetClientResource = realmClient.getClientResource(cmd.realmId, cmd.id)
             val rolesToAdd = cmd.roles.map { role ->
                 realmClient.roles().get(role).toRepresentation()
             }
