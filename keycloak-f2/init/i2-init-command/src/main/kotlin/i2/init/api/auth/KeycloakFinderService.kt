@@ -1,7 +1,6 @@
 package i2.init.api.auth
 
 import f2.dsl.fnc.invokeWith
-import i2.init.api.auth.config.KeycloakAdminConfig
 import i2.keycloak.f2.client.domain.ClientIdentifier
 import i2.keycloak.f2.client.domain.ClientModel
 import i2.keycloak.f2.client.domain.features.query.ClientGetByClientIdentifierFunction
@@ -27,7 +26,6 @@ class KeycloakFinderService(
     private val realmGetOneQueryFunction: RealmGetFunction,
     private val userGetByEmailQueryFunction: UserGetByEmailFunction,
     private val roleGetByNameQueryFunction: RoleGetByNameQueryFunction,
-    private val keycloakAdminConfig: KeycloakAdminConfig
 ) {
     suspend fun getRealm(id: RealmId): RealmModel? {
         return RealmGetQuery(
