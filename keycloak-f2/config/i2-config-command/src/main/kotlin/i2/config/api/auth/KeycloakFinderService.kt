@@ -1,7 +1,6 @@
 package i2.config.api.auth
 
 import f2.dsl.fnc.invokeWith
-import i2.config.api.auth.config.KeycloakAdminConfig
 import i2.keycloak.f2.client.domain.ClientIdentifier
 import i2.keycloak.f2.client.domain.ClientModel
 import i2.keycloak.f2.client.domain.features.query.ClientGetByClientIdentifierFunction
@@ -19,7 +18,6 @@ import org.springframework.stereotype.Service
 @Service
 class KeycloakFinderService(
     private val authRealm: AuthRealm,
-    private val keycloakAdminConfig: KeycloakAdminConfig,
     private val clientGetByClientIdentifierQueryFunction: ClientGetByClientIdentifierFunction,
     private val roleGetByNameQueryFunction: RoleGetByNameQueryFunction,
     private val userGetByEmailQueryFunction: UserGetByEmailFunction,
@@ -28,7 +26,7 @@ class KeycloakFinderService(
     suspend fun getClient(id: ClientIdentifier): ClientModel? {
         return ClientGetByClientIdentifierQuery(
             clientIdentifier = id,
-            realmId = keycloakAdminConfig.realm,
+            realmId = authRealm.realmId,
             auth = authRealm
         ).invokeWith(clientGetByClientIdentifierQueryFunction).idem
     }
@@ -36,7 +34,7 @@ class KeycloakFinderService(
     suspend fun getRole(name: RoleName): RoleModel? {
         return RoleGetByNameQuery(
             name = name,
-            realmId = keycloakAdminConfig.realm,
+            realmId = authRealm.realmId,
             auth = authRealm
         ).invokeWith(roleGetByNameQueryFunction).item
     }
@@ -44,7 +42,7 @@ class KeycloakFinderService(
     suspend fun getUser(email: String): UserModel? {
         return UserGetByEmailQuery(
             email = email,
-            realmId = keycloakAdminConfig.realm,
+            realmId = authRealm.realmId,
             auth = authRealm
         ).invokeWith(userGetByEmailQueryFunction).item
     }
