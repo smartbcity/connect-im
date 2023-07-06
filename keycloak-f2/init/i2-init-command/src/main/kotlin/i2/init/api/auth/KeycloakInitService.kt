@@ -53,7 +53,7 @@ class KeycloakInitService(
             realm = properties.realm
         ).let {
             keycloakAggregateService.grantClient(
-                id = properties.clientId,
+                id = clientId,
                 realm = properties.realm,
                 roles = listOf(
                     "create-client",
@@ -68,9 +68,11 @@ class KeycloakInitService(
     }
 
     private suspend fun createClientIfNotExists(properties: KeycloakInitProperties, createClient: suspend (id: String) -> Unit) {
-        keycloakFinderService.getClient(properties.clientId, properties.realm)?.let {
-            logger.info("Client already created")
-        } ?: createClient(properties.clientId)
+        properties.clientId?.let {
+            keycloakFinderService.getClient(properties.clientId, properties.realm)?.let {
+                logger.info("Client already created")
+            } ?: createClient(properties.clientId)
+        }
     }
 
     private suspend fun initAdmin(properties: KeycloakInitProperties) {
