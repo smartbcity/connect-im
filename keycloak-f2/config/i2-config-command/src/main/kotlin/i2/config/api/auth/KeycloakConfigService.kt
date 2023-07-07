@@ -61,10 +61,10 @@ class KeycloakConfigService (
                 isServiceAccountsEnabled = true,
                 isDirectAccessGrantsEnabled = false,
                 isStandardFlowEnabled = false
-            ).let {
+            ).let { clientId ->
                 appClient.roles?.toList()?.let { list ->
                     keycloakAggregateService.grantClient(
-                        id = appClient.clientId,
+                        id = clientId,
                         roles = list
                     )
                 }

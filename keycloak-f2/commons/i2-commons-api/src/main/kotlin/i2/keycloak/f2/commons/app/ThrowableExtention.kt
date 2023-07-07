@@ -17,5 +17,5 @@ fun Throwable.asI2Exception(msg: String): I2Exception {
     return I2ApiError(
         description = description,
         payload = emptyMap()
-    ).asI2Exception()
+    ).asI2Exception(this)
 }

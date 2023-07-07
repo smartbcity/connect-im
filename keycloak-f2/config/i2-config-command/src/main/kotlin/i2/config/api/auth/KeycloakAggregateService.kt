@@ -27,7 +27,6 @@ import org.springframework.stereotype.Service
 class KeycloakAggregateService(
     private val authRealm: AuthRealm,
     private val clientCreateFunction: ClientCreateFunction,
-//    private val keycloakConfig: KcAuthProperties,
     private val roleAddCompositesFunction: RoleAddCompositesFunction,
     private val roleCreateFunction: RoleCreateFunction,
     private val userCreateFunction: UserCreateFunction,

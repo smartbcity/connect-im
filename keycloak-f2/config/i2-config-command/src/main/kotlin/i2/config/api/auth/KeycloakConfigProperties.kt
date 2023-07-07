@@ -1,5 +1,7 @@
 package i2.config.api.auth
 
+import i2.keycloak.f2.client.domain.ClientIdentifier
+
 class KeycloakConfigProperties (
     val users: List<KeycloakUserConfig>?,
     val roles: List<String>?,
@@ -18,12 +20,12 @@ class KeycloakUserConfig(
 )
 
 class WebClient (
-    val clientId: String,
+    val clientId: ClientIdentifier,
     val webUrl: String
 )
 
 class AppClient (
-    val clientId: String,
+    val clientId: ClientIdentifier,
     val clientSecret: String?,
     val roles: Array<String>?,
     val realmManagementRoles: Array<String>?
