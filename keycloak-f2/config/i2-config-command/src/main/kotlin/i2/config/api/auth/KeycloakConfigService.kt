@@ -24,22 +24,18 @@ class KeycloakConfigService (
     }
 
     fun run(config: KeycloakConfigProperties) = runBlocking {
-        try {
-            logger.info("Initializing Roles...")
-            initRoles(config.roles, config.roleComposites)
-            logger.info("Initialized Roles")
+        logger.info("Initializing Roles...")
+        initRoles(config.roles, config.roleComposites)
+        logger.info("Initialized Roles")
 
-            logger.info("Initializing Clients...")
-            config.webClients.forEach { initWebClient(it) }
-            config.appClients.forEach { initAppClient(it) }
-            logger.info("Initialized Client")
+        logger.info("Initializing Clients...")
+        config.webClients.forEach { initWebClient(it) }
+        config.appClients.forEach { initAppClient(it) }
+        logger.info("Initialized Client")
 
-            logger.info("Initializing Users...")
-            initUsers(config.users)
-            logger.info("Initialized Users")
-        } catch (e: Exception) {
-            logger.error("Error initializing keycloak", e)
-        }
+        logger.info("Initializing Users...")
+        initUsers(config.users)
+        logger.info("Initialized Users")
     }
 
     private suspend fun checkIfExists(clientId: ClientId): Boolean {
