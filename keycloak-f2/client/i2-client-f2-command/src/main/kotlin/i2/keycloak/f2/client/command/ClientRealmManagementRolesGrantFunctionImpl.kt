@@ -5,15 +5,19 @@ import i2.keycloak.f2.client.domain.features.command.ClientRealmManagementRolesG
 import i2.keycloak.f2.client.domain.features.command.ClientRealmManagementRolesGrantedEvent
 import i2.keycloak.f2.commons.app.asI2Exception
 import i2.keycloak.realm.client.config.AuthRealmClientBuilder
+import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
 @Configuration
 class ClientRealmManagementRolesGrantFunctionImpl {
 
+    private val logger = LoggerFactory.getLogger(ClientRealmManagementRolesGrantFunctionImpl::class.java)
+
     @Bean
     fun clientRealmManagementRolesGrantFunction(): ClientRealmManagementRolesGrantFunction = f2Function { cmd ->
         try {
+            logger.info("Realm[${cmd.realmId}] Client[${cmd.id}] Granting roles[${cmd.roles}]")
             val realmClient = AuthRealmClientBuilder().build(cmd.auth)
 
             val targetClientKeycloakId = realmClient.clients(cmd.realmId).findByClientId(cmd.id).first().id
